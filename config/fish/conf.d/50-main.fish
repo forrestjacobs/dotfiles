@@ -33,7 +33,9 @@ set -xg TIME_STYLE iso
 set -xg fish_greeting
 
 # helix
-set -xg EDITOR hx
+if type -q hx
+  set -xg EDITOR hx
+end
 abbr --add --global -- se "sudo -e"
 
 # hydro
@@ -52,4 +54,6 @@ set -xg LESSHISTFILE "$XDG_CACHE_HOME"/less-hist
 set -xg MANOPT --no-justification
 
 # zoxide -- should be toward the end
-zoxide init fish --cmd cd | source
+if type -q zoxide
+  zoxide init fish --cmd cd | source
+end
