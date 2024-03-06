@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if command -v brew &> /dev/null; then
-  brew bundle
+  brew bundle --no-lock
 fi
 
 mkdir -p "${HOME}/.config/git";
