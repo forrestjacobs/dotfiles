@@ -1,7 +1,6 @@
 brew "bat"
 brew "eza"
 brew "fish"
-brew "fisher"
 brew "fzf"
 brew "helix"
 brew "patchutils"

@@ -23,5 +23,3 @@ if [[ $(basename "$SHELL") != "fish" ]]; then
   echo "${fish_path}" | sudo tee -a /etc/shells > /dev/null
   chsh -s "${fish_path}"
 fi
-
-fish -c "fisher update"
