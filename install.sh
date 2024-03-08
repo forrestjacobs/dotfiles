@@ -21,8 +21,10 @@ git config --global init.defaultBranch "main"
 stow --no-folding -t "${HOME}/.config" config
 
 if [[ $(basename "$SHELL") != "fish" ]]; then
-  echo "Change shell to fish"
+  echo "Change your shell to fish by running:"
   fish_path=$(which fish)
-  echo "${fish_path}" | sudo tee -a /etc/shells > /dev/null
-  chsh -s "${fish_path}"
+  if ! grep -q -F "${fish_path}" /etc/shells; then
+    echo "  echo \"${fish_path}\" | sudo tee -a /etc/shells"
+  fi
+  echo "  chsh -s \"${fish_path}\""
 fi
