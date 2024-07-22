@@ -27,6 +27,7 @@ set -xg BAT_STYLE numbers,changes
 set -xg BAT_THEME ansi
 
 # eza
+set -xg EZA_ICONS_AUTO
 set -xg TIME_STYLE iso
 
 # fish
@@ -39,7 +40,7 @@ end
 abbr --add --global -- se "sudo -e"
 
 # hydro
-set -xg hydro_symbol_prompt "❯"
+set -xg hydro_symbol_prompt ""
 set -xg hydro_color_pwd      green
 set -xg hydro_color_git      cyan
 set -xg hydro_color_duration normal

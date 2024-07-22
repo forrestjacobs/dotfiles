@@ -7,7 +7,4 @@ brew "patchutils"
 brew "stow"
 brew "zoxide"
 
-tap "homebrew/cask-fonts"
-
-cask "font-sarasa-gothic"
-cask "kitty"
+cask "font-jetbrains-mono-nerd-font"
