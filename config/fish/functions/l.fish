@@ -1,9 +1,9 @@
-if type -q bat
-  function l --wraps bat
+function l
+  if ! set -q argv[1] || test -d $argv[1]
+    ls -l $argv
+  else if type -q bat
     bat -p $argv
-  end
-else
-  function l --wraps $PAGER
+  else
     $PAGER $argv
   end
 end
