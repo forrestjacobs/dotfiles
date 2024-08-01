@@ -40,7 +40,7 @@ end
 abbr --add --global -- se "sudo -e"
 
 # hydro
-set -xg hydro_symbol_prompt ""
+set -xg hydro_symbol_prompt ""
 set -xg hydro_color_pwd      green
 set -xg hydro_color_git      cyan
 set -xg hydro_color_duration normal
