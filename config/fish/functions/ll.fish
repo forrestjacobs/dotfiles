@@ -1,4 +1,4 @@
-if type -q bat
+if type -q eza
   function ll --wraps eza
     eza -aagl $argv
   end
