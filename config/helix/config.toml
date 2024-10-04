@@ -5,3 +5,6 @@ color-modes = true
 cursor-shape.insert = "bar"
 indent-guides.render = true
 line-number = "relative"
+
+[editor.file-picker]
+hidden = false
