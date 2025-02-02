@@ -5,7 +5,7 @@ set -xg XDG_CACHE_HOME "$HOME"/.cache
 
 # homebrew
 if test -x /opt/homebrew/bin/brew
-  /opt/homebrew/bin/brew shellenv
+  /opt/homebrew/bin/brew shellenv | source
 end
 
 # bat
