@@ -4,15 +4,7 @@ set -xg XDG_DATA_HOME "$HOME"/.local/share
 set -xg XDG_CACHE_HOME "$HOME"/.cache
 
 # homebrew
-if test -x /usr/local/bin/brew
-  # from `brew shellenv`
-  set -gx HOMEBREW_PREFIX "/usr/local";
-  set -gx HOMEBREW_CELLAR "/usr/local/Cellar";
-  set -gx HOMEBREW_REPOSITORY "/usr/local/Homebrew";
-  set -q PATH; or set PATH ''; set -gx PATH "/usr/local/bin" "/usr/local/sbin" $PATH;
-  set -q MANPATH; or set MANPATH ''; set -gx MANPATH "/usr/local/share/man" $MANPATH;
-  set -q INFOPATH; or set INFOPATH ''; set -gx INFOPATH "/usr/local/share/info" $INFOPATH;
-else if test -x /opt/homebrew/bin/brew
+if test -x /opt/homebrew/bin/brew
   # from `brew shellenv`
   set -gx HOMEBREW_PREFIX "/opt/homebrew";
   set -gx HOMEBREW_CELLAR "/opt/homebrew/Cellar";
