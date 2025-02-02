@@ -1,5 +1,4 @@
 fish
 git
-fzf
 patchutils
 stow

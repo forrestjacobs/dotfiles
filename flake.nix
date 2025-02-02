@@ -7,7 +7,6 @@
         pkgs.bat
         pkgs.eza
         pkgs.fish
-        pkgs.fzf
         pkgs.helix
         pkgs.patchutils
         pkgs.zoxide
