@@ -7,20 +7,11 @@
         pkgs.bat
         pkgs.eza
         pkgs.fish
+        pkgs.git
         pkgs.helix
         pkgs.patchutils
         pkgs.zoxide
       ];
-
-      programs.git = {
-        enable = true;
-        userName = "Forrest Jacobs";
-        userEmail = lib.mkDefault "forrestjacobs@gmail.com";
-        extraConfig = {
-          pull.ff = "only";
-          init.defaultBranch = "main";
-        };
-      };
 
       home.file."${config.xdg.configHome}" = {
         source = ./config;
