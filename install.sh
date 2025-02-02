@@ -4,7 +4,7 @@ if command -v brew &> /dev/null; then
   brew bundle --no-lock
 elif command -v apt-get &> /dev/null; then
   sudo apt-get update
-  xargs -a packages.txt sudo apt-get install -y
+  sudo apt-get install -y fish stow
 fi
 
 stow --no-folding -t "${HOME}/.config" config
