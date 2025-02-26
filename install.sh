@@ -17,6 +17,6 @@ if command -v brew &> /dev/null; then
     echo "  chsh -s \"${fish_path}\""
   fi
 else
-  rsync -a config "${HOME}/.config"
-  rsync -a bin "${HOME}/.local/bin"
+  rsync -a "config/" "${HOME}/.config"
+  rsync -a "bin/" "${HOME}/.local/bin"
 fi
