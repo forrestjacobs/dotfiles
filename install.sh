@@ -3,7 +3,6 @@
 if command -v brew &> /dev/null; then
   brew bundle --no-lock
 elif command -v apt-get &> /dev/null; then
-  sudo apt-get update
   sudo apt-get install -y fish stow
 fi
 
