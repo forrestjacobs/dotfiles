@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+mkdir -p ~/.local/bin
+
 if command -v brew &> /dev/null; then
   brew bundle --no-lock
 elif command -v apt-get &> /dev/null; then
@@ -8,6 +10,7 @@ elif command -v apt-get &> /dev/null; then
 fi
 
 stow --no-folding -t "${HOME}/.config" config
+stow --no-folding -t "${HOME}/.local/bin" bin
 
 if [[ $(basename "$SHELL") != "fish" ]]; then
   echo "Change your shell to fish by running:"

@@ -8,6 +8,9 @@ if test -x /opt/homebrew/bin/brew
   /opt/homebrew/bin/brew shellenv | source
 end
 
+functions -e ll
+fish_add_path "$HOME"/.local/bin
+
 # bat
 set -xg BAT_STYLE numbers,changes
 set -xg BAT_THEME ansi

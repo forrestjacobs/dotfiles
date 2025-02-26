@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+git diff -U1 | grepdiff "$1" --output-matching=hunk | git apply --cached
