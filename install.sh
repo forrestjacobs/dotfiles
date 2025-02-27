@@ -20,7 +20,7 @@ fi
 
 inst() {
   if command -v stow &> /dev/null; then
-    stow --ignore "\.DS_Store" --no-folding -t "${2}" "{$1}"
+    stow --ignore "\.DS_Store" --no-folding -t "${2}" "${1}"
   elif command -v rsync &> /dev/null; then
     rsync -a "${1}/" "${2}"
   else
