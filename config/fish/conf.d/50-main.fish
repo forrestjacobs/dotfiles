@@ -26,7 +26,6 @@ set -xg fish_greeting
 if type -q hx
   set -xg EDITOR hx
 end
-abbr --add --global -- se "sudo -e"
 
 # hydro
 set -xg hydro_symbol_prompt ""
