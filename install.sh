@@ -31,3 +31,7 @@ inst() {
 
 inst config "${HOME}/.config"
 inst bin "${HOME}/.local/bin"
+
+if ! grep -qF "forrest/rc.bash" ~/.bashrc &> /dev/null; then
+  echo "[ -f ~/.config/forrest/rc.bash ] && . ~/.config/forrest/rc.bash" >> ~/.bashrc
+fi
