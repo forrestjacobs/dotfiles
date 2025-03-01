@@ -4,6 +4,14 @@
       home.stateVersion = "23.11";
 
       home.packages = [
+        (pkgs.stdenv.mkDerivation {
+          name = "dotfiles-bin";
+          src = ./bin;
+          installPhase = ''
+            mkdir -p $out/bin
+            cp * $out/bin
+          '';
+        })
         pkgs.bat
         pkgs.eza
         pkgs.fish
