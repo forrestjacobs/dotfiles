@@ -1,3 +1,8 @@
+# `exec term` if mosh-server is the parent
+if type -q term; and test (ps -p (ps -p $fish_pid -o ppid=) -o comm=) = 'mosh-server'
+  exec term
+end
+
 # export variables from env file
 export (grep "^[^#]" "$HOME"/.config/forrest/env | xargs -L 1)
 
