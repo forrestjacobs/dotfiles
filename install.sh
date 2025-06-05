@@ -4,7 +4,7 @@ set -e
 mkdir -p ~/.local/bin
 
 if command -v brew &> /dev/null; then
-  brew bundle --no-lock
+  brew bundle
 
   # We're only setting up fish from homebrew because other package managers's
   # fishes could be too old.
