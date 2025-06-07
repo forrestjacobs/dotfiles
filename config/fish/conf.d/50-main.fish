@@ -4,7 +4,10 @@ if type -q term; and test (ps -p (ps -p $fish_pid -o ppid=) -o comm=) = 'mosh-se
 end
 
 # export variables from env file
-export (grep "^[^#]" "$HOME"/.config/forrest/env.ini | xargs -L 1)
+export (grep "^[^#]" "$HOME"/.config/forrest/env.conf | xargs -L 1)
+
+# aliases
+source "$HOME"/.config/forrest/alias.conf
 
 # homebrew
 if test -x /opt/homebrew/bin/brew

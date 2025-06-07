@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+$EDITOR "${HOME}/.config/forrest/${1}.conf"
