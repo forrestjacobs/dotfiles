@@ -1,6 +1,6 @@
 # export variables from env file
 set -a
-. ~/.config/forrest/env
+. ~/.config/forrest/env.ini
 set +a
 
 # Add bin
