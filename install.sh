@@ -20,6 +20,7 @@ fi
 
 inst() {
   if command -v stow &> /dev/null; then
+    find -L "${2}" -type l -delete
     stow --ignore "\.DS_Store" --no-folding -t "${2}" "${1}"
   elif command -v rsync &> /dev/null; then
     rsync -a "${1}/" "${2}"
