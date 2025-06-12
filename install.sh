@@ -3,7 +3,7 @@ set -e
 
 mkdir -p ~/.local/bin
 
-if !command -v brew &> /dev/null; then
+if ! command -v brew &> /dev/null; then
   echo "Installing homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
@@ -35,3 +35,10 @@ inst() {
 
 inst config "${HOME}/.config"
 inst bin "${HOME}/.local/bin"
+
+git config -f "${HOME}/.config/git/config" user.name "Forrest Jacobs"
+if ! git config --global user.email &> /dev/null; then
+  git config -f "${HOME}/.config/git/config" user.email forrestjacobs@gmail.com
+fi
+git config -f "${HOME}/.config/git/config" init.defaultBranch main
+git config -f "${HOME}/.config/git/config" pull.ff only

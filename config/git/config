@@ -1,7 +1,0 @@
-[user]
-	name = Forrest Jacobs
-	email = forrestjacobs@gmail.com
-[pull]
-	ff = only
-[init]
-	defaultBranch = main
