@@ -3,6 +3,13 @@ if type -q term; and test (ps -p (string trim (ps -p $fish_pid -o ppid=)) -o com
   exec term
 end
 
+# homebrew
+if test -x /opt/homebrew/bin/brew
+  /opt/homebrew/bin/brew shellenv | source
+else if test -x /home/linuxbrew/.linuxbrew/bin/brew
+  /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
+end
+
 # aliases/abbrs/functions
 functions -e ll
 
@@ -18,13 +25,6 @@ end
 
 if type -q systemctl
   abbr S 'sudo systemctl'
-end
-
-# homebrew
-if test -x /opt/homebrew/bin/brew
-  /opt/homebrew/bin/brew shellenv | source
-else if test -x /home/linuxbrew/.linuxbrew/bin/brew
-  /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
 end
 
 # Add bin
