@@ -3,11 +3,22 @@ if type -q term; and test (ps -p (string trim (ps -p $fish_pid -o ppid=)) -o com
   exec term
 end
 
-# export variables from env file
-export (grep "^[^#]" "$HOME"/.config/forrest/env.conf | xargs -L 1)
+# aliases/abbrs/functions
+functions -e ll
 
-# aliases
-source "$HOME"/.config/forrest/alias.conf
+abbr se 'sudo -e'
+
+if type -q eza
+  alias ls 'eza'
+  alias ll 'eza -aagl'
+  alias lll 'eza -glT --level=2'
+else
+  alias ll 'ls -al'
+end
+
+if type -q systemctl
+  abbr S 'sudo systemctl'
+end
 
 # homebrew
 if test -x /opt/homebrew/bin/brew
@@ -17,8 +28,15 @@ else if test -x /home/linuxbrew/.linuxbrew/bin/brew
 end
 
 # Add bin
-functions -e ll
 fish_add_path "$HOME"/.local/bin
+
+# bat
+set -xg BAT_STYLE numbers,changes
+set -xg BAT_THEME ansi
+
+# eza
+set -xg EZA_ICONS_AUTO
+set -xg TIME_STYLE iso
 
 # fish
 set -xg fish_greeting
@@ -27,6 +45,14 @@ set -xg fish_greeting
 if type -q hx
   set -xg EDITOR hx
 end
+
+# less
+set -xg PAGER less
+set -xg LESS -iRFXMx4
+set -xg LESSHISTFILE ~/.cache/less-hist
+
+# man
+set -xg MANOPT --no-justification
 
 # hydro
 set -xg hydro_symbol_prompt ""
