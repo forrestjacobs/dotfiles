@@ -29,7 +29,7 @@ if [[ $(basename "$SHELL") != "fish" ]]; then
 fi
 
 inst() {
-  find -L "${2}" -type l -delete
+  find "${2}" -type l -exec sh -c 'for x; do [ -e "$x" ] || rm "$x"; done' _ {} +
   stow --ignore "\.DS_Store" --no-folding -t "${2}" "${1}"
 }
 
