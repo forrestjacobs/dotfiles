@@ -27,6 +27,9 @@ if type -q systemctl
   abbr S 'sudo systemctl'
 end
 
+# XDG
+set -xg XDG_CONFIG_HOME "$HOME"/.config
+
 # Add bin
 fish_add_path "$HOME"/.local/bin
 
