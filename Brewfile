@@ -1,12 +1,14 @@
+is_me = /forrest|jacobs/i.match? ENV["USER"]
+
 brew "bat"
 brew "eza"
 brew "fish"
-cask "font-monaspace" if OS.mac?
-brew "gh" if OS.mac?
-brew "gitui" if OS.mac?
+cask "font-monaspace" if is_me && OS.mac?
+brew "gh" if is_me
+brew "gitui" if is_me
 brew "helix"
-brew "htop" if OS.mac?
+brew "htop" if is_me
 brew "patchutils"
 brew "stow"
-brew "wget" if OS.mac?
+brew "wget" if is_me
 brew "zoxide"
