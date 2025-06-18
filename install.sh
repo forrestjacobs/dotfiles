@@ -15,7 +15,7 @@ else
   PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 fi
 
-brew bundle
+brew bundle --file ./config/homebrew/Brewfile
 
 if [[ $(basename "$SHELL") != "fish" ]]; then
   echo "Change your shell to fish by running:"
