@@ -11,4 +11,4 @@ brew "htop" if is_me
 brew "patchutils"
 brew "stow"
 brew "wget" if is_me
-brew "zoxide"
+brew "zoxide" if is_me
