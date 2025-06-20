@@ -1,21 +1,32 @@
 #!/usr/bin/env bash
 set -e
 
-mkdir -p ~/.local/bin
+install_homebrew_packages () {
+  if [[ $(uname) == "Darwin" ]]; then
+    PATH=/opt/homebrew/bin:$PATH
+  elif [[ $(uname -m) == "x86_64" ]]; then
+    PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+  else
+    return 1
+  fi
 
 if ! command -v brew &> /dev/null; then
   echo "Installing homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
-
-OS="$(uname)"
-if [[ "${OS}" == "Darwin" ]]; then
-  PATH=/opt/homebrew/bin:$PATH
-else
-  PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
-fi
-
 brew bundle --file ./config/homebrew/Brewfile
+}
+
+install_apt_packages () {
+  if [[ $(lsb_release -sd) == "Debian GNU/Linux 12 (bookworm)" ]]; then
+    sudo apt update
+    sudo apt install -y bat fish patchutils stow
+  else
+    return 1
+  fi
+}
+
+install_homebrew_packages || install_apt_packages
 
 if [[ $(basename "$SHELL") != "fish" ]]; then
   echo "Change your shell to fish by running:"
@@ -34,6 +45,8 @@ inst() {
 }
 
 inst config "${HOME}/.config"
+
+mkdir -p ~/.local/bin
 inst bin "${HOME}/.local/bin"
 
 git config -f "${HOME}/.config/git/config" user.name "Forrest Jacobs"
