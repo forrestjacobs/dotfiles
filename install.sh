@@ -2,15 +2,18 @@
 set -e
 
 if [[ $(uname) == "Darwin" ]]; then
-  PATH=/opt/homebrew/bin:$PATH
+  brew_path=/opt/homebrew/bin
 else
-  PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+  brew_path=/home/linuxbrew/.linuxbrew/bin
 fi
 
 if ! command -v brew &> /dev/null; then
   echo "Installing homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "eval \"\$($brew_path/brew shellenv)\"" >> $HOME/.bashrc
 fi
+
+PATH=$brew_path:$PATH
 brew bundle --file ./config/homebrew/Brewfile
 
 if [[ $(basename "$SHELL") != "fish" ]]; then
