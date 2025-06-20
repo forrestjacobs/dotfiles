@@ -10,11 +10,11 @@ install_homebrew_packages () {
     return 1
   fi
 
-if ! command -v brew &> /dev/null; then
-  echo "Installing homebrew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-brew bundle --file ./config/homebrew/Brewfile
+  if ! command -v brew &> /dev/null; then
+    echo "Installing homebrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+  brew bundle --file ./config/homebrew/Brewfile
 }
 
 install_apt_packages () {
@@ -29,14 +29,13 @@ install_apt_packages () {
 install_homebrew_packages || install_apt_packages
 
 if [[ $(basename "$SHELL") != "fish" ]]; then
-  echo "Change your shell to fish by running:"
   fish_path=$(type -P fish)
   if ! grep -q -F "${fish_path}" /etc/shells; then
     echo "Adding ${fish_path} to /etc/shells"
     echo "${fish_path}" | sudo tee -a /etc/shells
   fi
   echo "Changing shell to ${fish_path}"
-  chsh -s "${fish_path}"
+  sudo chsh -s "${fish_path}" $USER
 fi
 
 inst() {
