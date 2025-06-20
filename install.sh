@@ -3,7 +3,7 @@ set -e
 
 if [[ $(uname) == "Darwin" ]]; then
   PATH=/opt/homebrew/bin:$PATH
-elif [[ $(uname -m) == "x86_64" ]]; then
+else
   PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 fi
 
