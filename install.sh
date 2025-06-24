@@ -14,7 +14,7 @@ fi
 
 PATH=$brew_path:$PATH
 if command -v brew &> /dev/null; then
-brew bundle --file ./config/homebrew/Brewfile
+  brew bundle --file ./config/homebrew/Brewfile
 else
   echo "homebrew is not installed; skipping 'brew bundle'"
 fi
@@ -40,9 +40,14 @@ inst config "${HOME}/.config"
 mkdir -p ~/.local/bin
 inst bin "${HOME}/.local/bin"
 
-git config -f "${HOME}/.config/git/config" user.name "Forrest Jacobs"
-if ! git config --global user.email &> /dev/null; then
-  git config -f "${HOME}/.config/git/config" user.email forrestjacobs@gmail.com
+if [ ! -f "${HOME}/.gitconfig" ]; then
+  mkdir -p "${HOME}/.config/git"
+  touch "${HOME}/.config/git/config"
 fi
-git config -f "${HOME}/.config/git/config" init.defaultBranch main
-git config -f "${HOME}/.config/git/config" pull.ff only
+
+git config --global user.name "Forrest Jacobs"
+if ! git config --global user.email &> /dev/null; then
+  git config --global user.email forrestjacobs@gmail.com
+fi
+git config --global init.defaultBranch main
+git config --global pull.ff only
