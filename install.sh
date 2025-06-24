@@ -3,8 +3,10 @@ set -e
 
 if [[ $(uname) == "Darwin" ]]; then
   brew_path=/opt/homebrew/bin
-else
+elif [[ $(lsb_release -sd) == "Debian GNU/Linux 12 (bookworm)" ]]; then
   brew_path=/home/linuxbrew/.linuxbrew/bin
+  sudo DEBIAN_FRONTEND=noninteractive apt-get update --yes
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes fish
 fi
 
 if ! command -v brew &> /dev/null; then
@@ -27,6 +29,7 @@ if [[ $(basename "$SHELL") != "fish" ]]; then
 fi
 
 inst() {
+  # Removes broken links
   find "${2}" -type l -exec sh -c 'for x; do [ -e "$x" ] || rm "$x"; done' _ {} +
   stow --ignore "\.DS_Store" --no-folding -t "${2}" "${1}"
 }
