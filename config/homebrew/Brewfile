@@ -1,6 +1,6 @@
 is_me = /forrest|jacobs/i.match? ENV["USER"]
 
-brew "bat" if OS.mac?
+brew "bat"
 brew "eza"
 brew "fish" if OS.mac?
 cask "font-monaspace" if OS.mac?
