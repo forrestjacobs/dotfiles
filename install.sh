@@ -3,7 +3,7 @@ set -e
 
 if command -v lsb_release && [[ $(lsb_release -sd) == "Debian GNU/Linux 12 (bookworm)" ]]; then
   sudo DEBIAN_FRONTEND=noninteractive apt-get update --yes
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes fish
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes bat fish patchutils stow
 fi
 
 if [[ $(uname) == "Darwin" ]]; then
