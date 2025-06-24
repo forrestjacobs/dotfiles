@@ -46,7 +46,7 @@ set -xg fish_greeting
 
 # helix
 if type -q hx
-  set -xg EDITOR hx
+  set -xg EDITOR (which hx)
 end
 
 # less
