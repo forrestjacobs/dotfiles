@@ -1,14 +1,19 @@
-is_me = /forrest|jacobs/i.match? ENV["USER"]
+hostname = `hostname -s`.strip
 
 brew "bat"
 brew "eza"
 brew "fish" if OS.mac?
 cask "font-monaspace" if OS.mac?
-brew "gh" if is_me
-brew "gitui" if is_me
+brew "gh" if hostname == "rutherford"
+brew "gitui"
 brew "helix"
-brew "htop" if is_me
+brew "htop"
 brew "patchutils" if OS.mac?
 brew "stow" if OS.mac?
-brew "wget" if is_me
-brew "zoxide" if is_me
+brew "wget" if OS.mac?
+brew "zoxide"
+
+# Bash
+brew "bash-language-server"
+brew "shellcheck"
+brew "shfmt"
