@@ -19,7 +19,7 @@ else
   echo "homebrew is not installed; skipping 'brew bundle'"
 fi
 
-if command -v fish &> /dev/null && [[ $(basename "$SHELL") != "fish" ]]; then
+if [ -z "$SKIP_CHSH" ] && command -v fish &> /dev/null && [[ $(basename "$SHELL") != "fish" ]]; then
   fish_path=$(type -P fish)
   if ! grep -q -F "${fish_path}" /etc/shells; then
     echo "Adding ${fish_path} to /etc/shells"
