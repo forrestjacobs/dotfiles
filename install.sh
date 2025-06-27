@@ -30,14 +30,13 @@ if [ -z "$SKIP_CHSH" ] && command -v fish &> /dev/null && [[ $(basename "$SHELL"
 fi
 
 inst() {
+  mkdir -p "${2}"
   # Removes broken links
-  find "${2}" -type l -exec sh -c 'for x; do [ -e "$x" ] || rm "$x"; done' _ {} +
+  find -L "${2}" -type l -exec rm -- {} +
   stow --ignore "\.DS_Store" --no-folding -t "${2}" "${1}"
 }
 
 inst config "${HOME}/.config"
-
-mkdir -p ~/.local/bin
 inst bin "${HOME}/.local/bin"
 
 if [ ! -f "${HOME}/.gitconfig" ]; then
