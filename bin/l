@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+if [ $# -eq 0 ] || [ -d "$1" ]; then
+  if command -v eza &> /dev/null; then
+    eza -l "$@"
+  else
+    ls -l "$@"
+  fi
+elif command -v bat &> /dev/null; then
+  bat -p "$@"
+else
+  $PAGER "$@"
+fi
