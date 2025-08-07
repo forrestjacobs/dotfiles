@@ -4,7 +4,7 @@ set -e
 [ -f /etc/os-release ] && . /etc/os-release
 if [[ "$ID" == "debian" ]] && (( "$VERSION_ID" >= 12 )); then
   sudo DEBIAN_FRONTEND=noninteractive apt-get update --yes
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends fish patchutils stow
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends patchutils stow
 fi
 
 if [[ $(uname) == "Darwin" ]]; then
@@ -20,14 +20,8 @@ else
   echo "homebrew is not installed; skipping 'brew bundle'"
 fi
 
-if [ -z "$SKIP_CHSH" ] && command -v fish &> /dev/null && [[ $(basename "$SHELL") != "fish" ]]; then
-  fish_path=$(type -P fish)
-  if ! grep -q -F "${fish_path}" /etc/shells; then
-    echo "Adding ${fish_path} to /etc/shells"
-    echo "${fish_path}" | sudo tee -a /etc/shells
-  fi
-  echo "Changing shell to ${fish_path}"
-  sudo chsh -s "${fish_path}" "$USER"
+if [[ $(basename "$SHELL") != "fish" ]]; then
+  echo "run 'chsh_fish' to set up fish"
 fi
 
 ./bin/restow config "${HOME}/.config"
