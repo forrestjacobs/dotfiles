@@ -33,6 +33,9 @@ set -xg XDG_CONFIG_HOME "$HOME"/.config
 # Add bin
 fish_add_path "$HOME"/.local/bin
 
+# EDITOR
+set -xg EDITOR (get_editor)
+
 # bat
 set -xg BAT_STYLE numbers,changes
 set -xg BAT_THEME ansi
@@ -43,11 +46,6 @@ set -xg TIME_STYLE iso
 
 # fish
 set -xg fish_greeting
-
-# helix
-if type -q hx
-  set -xg EDITOR (which hx)
-end
 
 # less
 set -xg PAGER less

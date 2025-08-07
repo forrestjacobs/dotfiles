@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  echo code_wait
+elif command -v hx &> /dev/null; then
+  which hx
+else
+  echo "$EDITOR"
+fi
