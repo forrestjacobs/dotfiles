@@ -1,2 +1,11 @@
 #!/usr/bin/env bash
+
+if ! command -v grepdiff &> /dev/null && command -v apt-get &> /dev/null; then
+  read -p "Install dependencies using apt? [yN]" -n 1 -r
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo apt-get update
+    sudo apt-get install --no-install-recommends patchutils
+  fi
+fi
+
 git diff -U1 | grepdiff "$1" --output-matching=hunk | git apply -R
