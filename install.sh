@@ -4,7 +4,7 @@ set -e
 [ -f /etc/os-release ] && . /etc/os-release
 if [[ "$ID" == "debian" ]] && (( "$VERSION_ID" >= 12 )); then
   sudo DEBIAN_FRONTEND=noninteractive apt-get update --yes
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends patchutils stow
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends patchutils
 fi
 
 if [[ $(uname) == "Darwin" ]]; then
