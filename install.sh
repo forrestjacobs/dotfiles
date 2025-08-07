@@ -26,18 +26,11 @@ if [ -z "$SKIP_CHSH" ] && command -v fish &> /dev/null && [[ $(basename "$SHELL"
     echo "${fish_path}" | sudo tee -a /etc/shells
   fi
   echo "Changing shell to ${fish_path}"
-  sudo chsh -s "${fish_path}" $USER
+  sudo chsh -s "${fish_path}" "$USER"
 fi
 
-inst() {
-  mkdir -p "${2}"
-  # Removes broken links
-  find -L "${2}" -type l -exec rm -- {} +
-  stow --ignore "\.DS_Store" --no-folding -t "${2}" "${1}"
-}
-
-inst config "${HOME}/.config"
-inst bin "${HOME}/.local/bin"
+./bin/restow config "${HOME}/.config"
+./bin/restow bin "${HOME}/.local/bin"
 
 if [ ! -f "${HOME}/.gitconfig" ]; then
   mkdir -p "${HOME}/.config/git"

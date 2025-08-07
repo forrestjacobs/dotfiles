@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+mkdir -p "${2}"
+# Removes broken links
+find -L "${2}" -type l -exec rm -- {} +
+stow --ignore "\.DS_Store" --no-folding -t "${2}" "${1}"
