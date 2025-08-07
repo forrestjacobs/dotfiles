@@ -32,6 +32,11 @@ fi
 ./bin/restow config "${HOME}/.config"
 ./bin/restow bin "${HOME}/.local/bin"
 
+if [ -f "${HOME}/.bashrc" ]; then
+  bashinitline='[ -f ~/.config/bash/bashrc ] && . ~/.config/bash/bashrc'
+  grep -qxF "$bashinitline" "${HOME}/.bashrc" || echo "$bashinitline" >> "${HOME}/.bashrc"
+fi
+
 if [ ! -f "${HOME}/.gitconfig" ]; then
   mkdir -p "${HOME}/.config/git"
   touch "${HOME}/.config/git/config"
