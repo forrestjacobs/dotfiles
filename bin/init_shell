@@ -2,7 +2,6 @@
 
 shell=$1
 
-# Helpers
 escape () {
   text=$1
   text=${text//\\/\\\\}
@@ -31,58 +30,7 @@ add_path () {
   p_export PATH "$1:$PATH"
 }
 
-# Basic setup
-p_export XDG_CONFIG_HOME "$HOME"/.config
-add_path "$HOME"/.local/bin
-
-# Homebrew
-for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
-  if command -v "$brew_path" &> /dev/null; then
-    $brew_path shellenv "$shell"
-    eval "$($brew_path shellenv bash)"
-    break
-  fi
+for f in ~/.config/init_shell/conf.d/*.sh; do
+  # shellcheck disable=SC1090
+  . "$f"
 done
-
-# EDITOR
-if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-  p_export EDITOR code_wait
-elif command -v hx &> /dev/null; then
-  p_export EDITOR "$(which hx)"
-fi
-
-# bat
-p_export BAT_STYLE numbers,changes
-p_export BAT_THEME ansi
-
-# eza
-p_export EZA_ICONS_AUTO
-p_export TIME_STYLE iso
-if command -v eza &> /dev/null; then
-  p_alias ls 'eza'
-  p_alias ll 'eza -aagl'
-  p_alias lll 'eza -glT --level=2'
-else
-  p_alias ll 'ls -al'
-fi
-
-# less
-p_export PAGER less
-p_export LESS -iRFXMx4
-p_export LESSHISTFILE ~/.cache/less-hist
-
-# man
-p_export MANOPT --no-justification
-
-# sudo
-p_abbr se 'sudo -e'
-
-# systemctl
-if command -v systemctl &> /dev/null; then
-  p_abbr S 'sudo systemctl'
-fi
-
-# zoxide -- should be toward the end
-if command -v zoxide &> /dev/null; then
-  zoxide init "$shell" --cmd cd
-fi
