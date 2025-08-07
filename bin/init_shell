@@ -3,37 +3,36 @@
 shell=$1
 
 # Helpers
-al () {
+escape () {
+  text=$1
+  text=${text//\\/\\\\}
+  text=${text//\'/\\\'}
+  echo "'$text'"
+}
+
+p_alias () {
+  echo "alias $(escape "$1")=$(escape "$2")"
+}
+
+p_abbr () {
   if [[ "$shell" = "fish" ]]; then
-    echo "alias $1 '$2'"
+    echo "abbr $(escape "$1") $(escape "$2")"
   else
-    echo "alias $1='$2'"
+    p_alias "$@"
   fi
 }
 
-abbr () {
-  if [[ "$shell" = "fish" ]]; then
-    echo "abbr $1 '$2'"
-  else
-    al "$@"
-  fi
-}
-
-set_env () {
+p_export () {
   export "$1"="$2"
-  if [[ "$shell" = "fish" ]]; then
-    echo "set -xg $1 '$2'"
-  else
-    echo "export $1='$2'"
-  fi
+  echo "export $(escape "$1")=$(escape "$2")"
 }
 
 add_path () {
-  set_env PATH "$1:$PATH"
+  p_export PATH "$1:$PATH"
 }
 
 # Basic setup
-set_env XDG_CONFIG_HOME "$HOME"/.config
+p_export XDG_CONFIG_HOME "$HOME"/.config
 add_path "$HOME"/.local/bin
 
 # Homebrew
@@ -50,40 +49,40 @@ fi
 
 # EDITOR
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-  set_env EDITOR code_wait
+  p_export EDITOR code_wait
 elif command -v hx &> /dev/null; then
-  set_env EDITOR "$(which hx)"
+  p_export EDITOR "$(which hx)"
 fi
 
 # bat
-set_env BAT_STYLE numbers,changes
-set_env BAT_THEME ansi
+p_export BAT_STYLE numbers,changes
+p_export BAT_THEME ansi
 
 # eza
-set_env EZA_ICONS_AUTO
-set_env TIME_STYLE iso
+p_export EZA_ICONS_AUTO
+p_export TIME_STYLE iso
 if command -v eza &> /dev/null; then
-  al ls 'eza'
-  al ll 'eza -aagl'
-  al lll 'eza -glT --level=2'
+  p_alias ls 'eza'
+  p_alias ll 'eza -aagl'
+  p_alias lll 'eza -glT --level=2'
 else
-  al ll 'ls -al'
+  p_alias ll 'ls -al'
 fi
 
 # less
-set_env PAGER less
-set_env LESS -iRFXMx4
-set_env LESSHISTFILE ~/.cache/less-hist
+p_export PAGER less
+p_export LESS -iRFXMx4
+p_export LESSHISTFILE ~/.cache/less-hist
 
 # man
-set_env MANOPT --no-justification
+p_export MANOPT --no-justification
 
 # sudo
-abbr se 'sudo -e'
+p_abbr se 'sudo -e'
 
 # systemctl
 if command -v systemctl &> /dev/null; then
-  abbr S 'sudo systemctl'
+  p_abbr S 'sudo systemctl'
 fi
 
 # zoxide -- should be toward the end
