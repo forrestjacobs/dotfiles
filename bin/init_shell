@@ -28,6 +28,10 @@ set_env () {
   fi
 }
 
+add_path () {
+  set_env PATH "$1:$PATH"
+}
+
 p_source () {
   if [[ "$shell" = "fish" ]]; then
     echo "$1 | source"
@@ -36,15 +40,18 @@ p_source () {
   fi
 }
 
+# Basic setup
+set_env XDG_CONFIG_HOME "$HOME"/.config
+add_path "$HOME"/.local/bin
+
 # Homebrew
 if command -v /opt/homebrew/bin/brew &> /dev/null; then
   p_source "/opt/homebrew/bin/brew shellenv"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 elif command -v /home/linuxbrew/.linuxbrew/bin/brew &> /dev/null; then
   p_source "/home/linuxbrew/.linuxbrew/bin/brew shellenv"
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
-
-# XDG
-set_env XDG_CONFIG_HOME "$HOME"/.config
 
 # EDITOR
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then

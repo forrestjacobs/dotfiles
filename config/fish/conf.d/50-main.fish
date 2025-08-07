@@ -6,11 +6,8 @@ end
 # clear distro config
 functions -e ll
 
-# Add bin
-fish_add_path "$HOME"/.local/bin
-
 # shared config
-init_shell fish | source
+~/.local/bin/init_shell fish | source
 
 # fish
 set -xg fish_greeting
