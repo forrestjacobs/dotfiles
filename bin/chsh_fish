@@ -19,8 +19,8 @@ fi
 
 fish_path=$(type -P fish)
 if ! grep -q -F "${fish_path}" /etc/shells; then
-echo "Adding ${fish_path} to /etc/shells"
-echo "${fish_path}" | sudo tee -a /etc/shells
+  echo "Adding ${fish_path} to /etc/shells"
+  echo "${fish_path}" | sudo tee -a /etc/shells
 fi
 echo "Changing shell to ${fish_path}"
 sudo chsh -s "${fish_path}" "$USER"
