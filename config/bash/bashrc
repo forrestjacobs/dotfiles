@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+for f in ~/.config/bash/conf.d/*.sh; do
+  . "$f"
+done
