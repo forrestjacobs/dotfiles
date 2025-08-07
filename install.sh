@@ -1,13 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-if [[ $(uname) == "Darwin" ]]; then
-  brew_path=/opt/homebrew/bin
-else
-  brew_path=/home/linuxbrew/.linuxbrew/bin
-fi
-
-PATH=$brew_path:$PATH
+eval "$(./bin/init_brew bash)"
 if command -v brew &> /dev/null; then
   brew bundle --file ./config/homebrew/Brewfile
 else
