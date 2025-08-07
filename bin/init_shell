@@ -32,25 +32,20 @@ add_path () {
   set_env PATH "$1:$PATH"
 }
 
-p_source () {
-  if [[ "$shell" = "fish" ]]; then
-    echo "$1 | source"
-  else
-    echo "eval \$($1)"
-  fi
-}
-
 # Basic setup
 set_env XDG_CONFIG_HOME "$HOME"/.config
 add_path "$HOME"/.local/bin
 
 # Homebrew
 if command -v /opt/homebrew/bin/brew &> /dev/null; then
-  p_source "/opt/homebrew/bin/brew shellenv"
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+  brew_path=/opt/homebrew/bin/brew
 elif command -v /home/linuxbrew/.linuxbrew/bin/brew &> /dev/null; then
-  p_source "/home/linuxbrew/.linuxbrew/bin/brew shellenv"
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  brew_path=/home/linuxbrew/.linuxbrew/bin/brew
+fi
+
+if [ -n "$brew_path" ]; then
+  $brew_path shellenv "$shell"
+  eval "$($brew_path shellenv bash)"
 fi
 
 # EDITOR
@@ -93,5 +88,5 @@ fi
 
 # zoxide -- should be toward the end
 if command -v zoxide &> /dev/null; then
-  p_source "zoxide init $shell --cmd cd"
+  zoxide init "$shell" --cmd cd
 fi
