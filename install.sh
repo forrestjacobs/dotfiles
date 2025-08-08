@@ -24,6 +24,8 @@ restow () {
   ' find-bash "${2}" {} ';'
 }
 
+pushd "$(dirname "${BASH_SOURCE:0}")" > /dev/null
+
 echo 'Linking config files'
 restow config "${HOME}/.config"
 restow bin "${HOME}/.local/bin"
@@ -38,11 +40,6 @@ if has brew; then
   brew bundle --file ./config/homebrew/Brewfile
 else
   echo "homebrew is not installed; skipping"
-fi
-
-if [[ $(basename "$SHELL") != "fish" ]]; then
-  echo
-  echo "run 'chsh_fish' to set up fish"
 fi
 
 echo
@@ -66,3 +63,12 @@ if ! git config --global user.email &> /dev/null; then
 fi
 git config --global init.defaultBranch main
 git config --global pull.ff only
+
+echo
+echo 'Done!'
+
+if [[ $(basename "$SHELL") != "fish" ]]; then
+  echo "run 'chsh_fish' to set up fish"
+fi
+
+popd > /dev/null
