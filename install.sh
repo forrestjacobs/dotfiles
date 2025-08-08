@@ -11,7 +11,9 @@ restow () {
   find "${1}" -type d -exec bash -c '
     base_dir="$1"
     path="$2"
-    mkdir -p "$base_dir/${path#*/}"
+    if [[ "$path" =~ [/] ]]; then
+      mkdir -p "$base_dir/${path#*/}"
+    fi
   ' find-bash "${2}" {} ';'
 
   # Creates softlinks
@@ -22,25 +24,37 @@ restow () {
   ' find-bash "${2}" {} ';'
 }
 
+echo 'Stowing'
 restow config "${HOME}/.config"
 restow bin "${HOME}/.local/bin"
+
+echo
+echo 'Initializing shell'
 eval "$(./bin/init_shell bash)"
 
+echo
 if ./bin/has brew; then
+  echo 'Calling brew bundle'
   brew bundle --file ./config/homebrew/Brewfile
 else
   echo "homebrew is not installed; skipping 'brew bundle'"
 fi
 
 if [[ $(basename "$SHELL") != "fish" ]]; then
+  echo
   echo "run 'chsh_fish' to set up fish"
 fi
 
-if [ -f "${HOME}/.bashrc" ]; then
-  bashinitline='[ -f ~/.config/bash/bashrc ] && . ~/.config/bash/bashrc'
-  grep -qxF "$bashinitline" "${HOME}/.bashrc" || echo "$bashinitline" >> "${HOME}/.bashrc"
+echo
+echo 'Configuring bash'
+bashinitline='[ -f ~/.config/bash/bashrc ] && . ~/.config/bash/bashrc'
+if ! grep -qxF "$bashinitline" "${HOME}/.bashrc"; then
+  echo 'Adding bash config'
+  echo "$bashinitline" >> "${HOME}/.bashrc"
 fi
 
+echo
+echo 'Configuring git'
 if [ ! -f "${HOME}/.gitconfig" ]; then
   mkdir -p "${HOME}/.config/git"
   touch "${HOME}/.config/git/config"
