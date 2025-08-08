@@ -24,7 +24,7 @@ restow () {
   ' find-bash "${2}" {} ';'
 }
 
-echo 'Stowing'
+echo 'Linking config files'
 restow config "${HOME}/.config"
 restow bin "${HOME}/.local/bin"
 
@@ -33,11 +33,11 @@ echo 'Initializing shell'
 eval "$(./bin/init_shell bash)"
 
 echo
-if ./bin/has brew; then
-  echo 'Calling brew bundle'
+echo "Calling 'brew bundle'"
+if has brew; then
   brew bundle --file ./config/homebrew/Brewfile
 else
-  echo "homebrew is not installed; skipping 'brew bundle'"
+  echo "homebrew is not installed; skipping"
 fi
 
 if [[ $(basename "$SHELL") != "fish" ]]; then
