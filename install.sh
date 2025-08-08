@@ -1,8 +1,32 @@
 #!/usr/bin/env bash
 set -e
 
-eval "$(./bin/init_brew bash)"
-if command -v brew &> /dev/null; then
+restow () {
+  mkdir -p "${2}"
+
+  # Removes broken links
+  find -L "${2}" -type l -exec rm -- {} +
+
+  # Recreates directory structure
+  find "${1}" -type d -exec bash -c '
+    base_dir="$1"
+    path="$2"
+    mkdir -p "$base_dir/${path#*/}"
+  ' find-bash "${2}" {} ';'
+
+  # Creates softlinks
+  find "${1}" -type f '!' -name .DS_Store -exec bash -c '
+    base_dir="$1"
+    path="$2"
+    ln -sf "$(pwd)/${path}" "$base_dir/${path#*/}"
+  ' find-bash "${2}" {} ';'
+}
+
+restow config "${HOME}/.config"
+restow bin "${HOME}/.local/bin"
+eval "$(./bin/init_shell bash)"
+
+if ./bin/has brew; then
   brew bundle --file ./config/homebrew/Brewfile
 else
   echo "homebrew is not installed; skipping 'brew bundle'"
@@ -11,9 +35,6 @@ fi
 if [[ $(basename "$SHELL") != "fish" ]]; then
   echo "run 'chsh_fish' to set up fish"
 fi
-
-./bin/restow config "${HOME}/.config"
-./bin/restow bin "${HOME}/.local/bin"
 
 if [ -f "${HOME}/.bashrc" ]; then
   bashinitline='[ -f ~/.config/bash/bashrc ] && . ~/.config/bash/bashrc'

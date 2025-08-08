@@ -3,7 +3,7 @@
 # EDITOR
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
   p_export EDITOR code_wait
-elif command -v hx &> /dev/null; then
+elif has hx; then
   p_export EDITOR "$(which hx)"
 fi
 
@@ -14,7 +14,7 @@ p_export BAT_THEME ansi
 # eza
 p_export EZA_ICONS_AUTO
 p_export TIME_STYLE iso
-if command -v eza &> /dev/null; then
+if has eza; then
   p_alias ls 'eza'
   p_alias ll 'eza -aagl'
   p_alias lll 'eza -glT --level=2'
@@ -34,6 +34,6 @@ p_export MANOPT --no-justification
 p_abbr se 'sudo -e'
 
 # systemctl
-if command -v systemctl &> /dev/null; then
+if has systemctl; then
   p_abbr S 'sudo systemctl'
 fi

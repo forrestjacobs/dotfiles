@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
-  if command -v "$brew_path" &> /dev/null; then
-    $brew_path shellenv "${1:?}"
-    break
-  fi
-done

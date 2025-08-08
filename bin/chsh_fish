@@ -7,7 +7,7 @@ if [[ "$ID" == "debian" ]] && (( "$VERSION_ID" >= 12 )); then
   sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends fish
 fi
 
-if ! command -v fish &> /dev/null; then
+if ! has fish; then
   echo "fish is not installed; install fish and then try again"
   exit 1
 fi
