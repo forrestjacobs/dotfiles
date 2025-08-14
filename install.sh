@@ -1,39 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-restow () {
-  mkdir -p "${2}"
-
-  # Removes broken links
-  find -L "${2}" -type l -exec rm -- {} +
-
-  # Recreates directory structure
-  find "${1}" -type d -exec bash -c '
-    base_dir="$1"
-    path="$2"
-    if [[ "$path" =~ [/] ]]; then
-      mkdir -p "$base_dir/${path#*/}"
-    fi
-  ' find-bash "${2}" {} ';'
-
-  # Creates softlinks
-  find "${1}" -type f '!' -name .DS_Store -exec bash -c '
-    symlink="$1/${2#*/}"
-    target="$(pwd)/${2}"
-    if [ ! -L "$symlink" ]; then
-      ln -s "$target" "$symlink"
-    elif [ "$(readlink -f $symlink)" != "$target" ]; then
-      echo "$symlink already exists and is pointing to something else; exiting"
-      exit 1
-    fi
-  ' find-bash "${2}" {} ';'
-}
-
 pushd "$(dirname "${BASH_SOURCE:0}")" > /dev/null
 
 echo 'Linking config files'
-restow config "${HOME}/.config"
-restow bin "${HOME}/.local/bin"
+./bin/restow config "${HOME}/.config"
+./bin/restow bin "${HOME}/.local/bin"
 
 echo
 echo 'Initializing shell'
