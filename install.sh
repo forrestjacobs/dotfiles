@@ -18,9 +18,14 @@ restow () {
 
   # Creates softlinks
   find "${1}" -type f '!' -name .DS_Store -exec bash -c '
-    base_dir="$1"
-    path="$2"
-    ln -sf "$(pwd)/${path}" "$base_dir/${path#*/}"
+    symlink="$1/${2#*/}"
+    target="$(pwd)/${2}"
+    if [ ! -L "$symlink" ]; then
+      ln -s "$target" "$symlink"
+    elif [ "$(readlink -f $symlink)" != "$target" ]; then
+      echo "$symlink already exists and is pointing to something else; exiting"
+      exit 1
+    fi
   ' find-bash "${2}" {} ';'
 }
 
