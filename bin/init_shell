@@ -3,7 +3,7 @@
 shell=$1
 
 escape () {
-  text=$1
+  local text=$1
   text=${text//\\/\\\\}
   text=${text//\'/\\\'}
   echo "'$text'"
