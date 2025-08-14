@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -z "$USER_BASH_CONFIG_INITIALIZED" ]; then
-  export USER_BASH_CONFIG_INITIALIZED=1
-
-  for f in ~/.config/bash/conf.d/*.sh; do
-    # shellcheck disable=SC1090
-    . "$f"
-  done
-fi
+for f in ~/.config/bash/conf.d/*.sh; do
+  # shellcheck disable=SC1090
+  . "$f"
+done
