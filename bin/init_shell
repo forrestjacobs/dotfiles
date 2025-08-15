@@ -27,7 +27,9 @@ p_export () {
 }
 
 add_path () {
-  p_export PATH "$1:$PATH"
+  if ! echo "$PATH" | grep -E -q "(^|:)$1($|:)" ; then
+    p_export PATH "$1:$PATH"
+  fi
 }
 
 for f in ~/.config/init_shell/conf.d/*.sh; do
