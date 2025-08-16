@@ -9,7 +9,7 @@ echo 'Linking config files'
 
 echo
 echo 'Initializing shell'
-eval "$(./bin/init_shell bash)"
+eval "$(shell=bash ./config/init_shell/conf.d/10-setup.sh)"
 
 echo
 echo "Calling 'brew bundle'"

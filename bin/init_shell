@@ -1,36 +1,7 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC2034
 shell=$1
-
-escape () {
-  local text=$1
-  text=${text//\\/\\\\}
-  text=${text//\'/\\\'}
-  echo "'$text'"
-}
-
-p_alias () {
-  echo "alias $(escape "$1")=$(escape "$2")"
-}
-
-p_abbr () {
-  if [[ "$shell" = "fish" ]]; then
-    echo "abbr $(escape "$1") $(escape "$2")"
-  else
-    p_alias "$@"
-  fi
-}
-
-p_export () {
-  export "$1"="$2"
-  echo "export $(escape "$1")=$(escape "$2")"
-}
-
-add_path () {
-  if ! echo "$PATH" | grep -E -q "(^|:)$1($|:)" ; then
-    p_export PATH "$1:$PATH"
-  fi
-}
 
 for f in ~/.config/init_shell/conf.d/*.sh; do
   # shellcheck disable=SC1090
