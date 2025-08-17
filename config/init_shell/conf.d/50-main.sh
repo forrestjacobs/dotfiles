@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# `exec term` if mosh-server is the parent
+# TODO: Do directly in this script
+if [[ "${shell:?}" = "fish" ]]; then
+  echo "if type -q term; and test (ps -p (string trim (ps -p \$fish_pid -o ppid=)) -o comm=) = 'mosh-server'"
+  echo "  exec term"
+  echo "end"
+fi
+
 # EDITOR
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
   p_export EDITOR code_wait
@@ -14,6 +22,10 @@ p_export BAT_THEME ansi
 # eza
 p_export EZA_ICONS_AUTO
 p_export TIME_STYLE iso
+if [[ "${shell:?}" = "fish" ]]; then
+  # remove distro's ll
+  echo "functions -e ll"
+fi
 if has eza; then
   p_alias ls 'eza'
   p_alias ll 'eza -aagl'
@@ -21,6 +33,16 @@ if has eza; then
 else
   p_alias ll 'ls -al'
 fi
+
+# fish
+p_export fish_greeting
+
+# hydro
+p_export hydro_symbol_prompt ""
+p_export hydro_color_pwd      green
+p_export hydro_color_git      cyan
+p_export hydro_color_duration normal
+p_export hydro_color_error    red
 
 # less
 p_export PAGER less
