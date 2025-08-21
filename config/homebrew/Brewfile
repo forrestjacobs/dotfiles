@@ -9,6 +9,7 @@ brew "gitui"
 brew "helix"
 brew "htop"
 brew "patchutils" if OS.mac?
+brew "starship"
 brew "wget" if OS.mac?
 brew "zoxide"
 

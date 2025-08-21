@@ -1,0 +1,6 @@
+# See https://starship.rs/config/
+
+add_newline = false
+
+[line_break]
+disabled = true

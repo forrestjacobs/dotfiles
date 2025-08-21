@@ -37,13 +37,6 @@ fi
 # fish
 p_export fish_greeting
 
-# hydro
-p_export hydro_symbol_prompt ""
-p_export hydro_color_pwd      green
-p_export hydro_color_git      cyan
-p_export hydro_color_duration normal
-p_export hydro_color_error    red
-
 # less
 p_export PAGER less
 p_export LESS -iRFXMx4
