@@ -55,11 +55,7 @@ p_export MANOPT --no-justification
 # mise
 p_export MISE_FISH_AUTO_ACTIVATE 0
 if has mise; then
-  if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-    mise activate "$shell" --shims
-  else
-    mise activate "$shell"
-  fi
+  add_path "$HOME"/.local/share/mise/shims
 fi
 
 # sudo
