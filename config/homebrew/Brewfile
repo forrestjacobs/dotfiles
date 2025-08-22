@@ -4,6 +4,7 @@ brew "bat"
 brew "eza"
 brew "fish" if OS.mac?
 cask "font-monaspace" if OS.mac?
+brew "fzf"
 brew "gh" if hostname == "rutherford"
 brew "gitui"
 brew "helix"
