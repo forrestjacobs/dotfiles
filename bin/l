@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 if [ $# -eq 0 ] || [ -d "$1" ]; then
   if has eza; then
-    eza -l "$@"
+    eza "$@"
   else
-    ls -l "$@"
+    ls "$@"
   fi
 elif has bat; then
   bat -p "$@"
