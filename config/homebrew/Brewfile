@@ -2,6 +2,7 @@ hostname = `hostname -s`.strip
 
 brew "bat"
 brew "eza"
+brew "fd"
 brew "fish" if OS.mac?
 cask "font-monaspace" if OS.mac?
 brew "fzf"
@@ -10,6 +11,7 @@ brew "gitui"
 brew "helix"
 brew "htop"
 brew "patchutils" if OS.mac?
+brew "ripgrep"
 brew "starship"
 brew "wget" if OS.mac?
 brew "zoxide"
