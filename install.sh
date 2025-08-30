@@ -40,6 +40,9 @@ git config --global pull.ff only
 echo
 echo 'Done!'
 
+if [ -f "${HOME}/.gitconfig" ]; then
+  echo "run 'mv ~/.gitconfig ~/.config/git' to move gitconfig to the XDG directory"
+fi
 if [ ! -f /etc/sudoers.d/50-nopasswd ]; then
   echo "run 'setup_sudo' to set up passwordless sudo"
 fi

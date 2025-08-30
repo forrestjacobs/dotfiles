@@ -12,8 +12,6 @@ My dotfiles. Running `install.sh` ① links the [config](./config) directory to 
    brew install gh
    gh auth login
    gh auth setup-git
-   mkdir -p ~/.config/git
-   mv ~/.gitconfig ~/.config/git/config
    ```
 3. Check out this project and run `./install.sh`. There may be additional instructions listed at the end of the script's output.
 
