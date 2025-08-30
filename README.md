@@ -6,7 +6,7 @@ This repository contains scripts and config files for my Mac & Linux development
 
 - Recent macOS
 - Debian 12+ (both as a host and in a dev container)
-- Recent NixOS
+- Recent NixOS via [Home Manager](https://nix-community.github.io/home-manager/)
 
 ## Setup
 
@@ -23,9 +23,9 @@ This repository contains scripts and config files for my Mac & Linux development
 
 There may be additional instructions printed at the end of the script's output. `install.sh` is idempotent, so you can run it again to see the instructions later.
 
-### NixOS
+### Home Manager
 
-Only supported by my [private NixOS config](https://github.com/forrestjacobs/nixos-config) -- sorry!
+Import [this flake](./flake.nix) in your [Home Manager](https://nix-community.github.io/home-manager/) config.
 
 ### Dev containers
 
