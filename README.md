@@ -17,6 +17,10 @@ My dotfiles. Running `install.sh` ① links the [config](./config) directory to 
 
 There may be additional instructions printed at the end of the script's output. `install.sh` is idempotent, so you can run it again to see the instructions later.
 
+### NixOS
+
+Only supported by my [private NixOS config](https://github.com/forrestjacobs/nixos-config) -- sorry!
+
 ### Debian 12+ dev containers
 
 #### VS Code
