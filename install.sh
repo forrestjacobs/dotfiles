@@ -34,10 +34,6 @@ if [ ! -f "${HOME}/.gitconfig" ]; then
   touch "${HOME}/.config/git/config"
 fi
 
-git config --global user.name "Forrest Jacobs"
-if ! git config --global user.email &> /dev/null; then
-  git config --global user.email forrestjacobs@gmail.com
-fi
 git config --global init.defaultBranch main
 git config --global pull.ff only
 
