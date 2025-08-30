@@ -1,6 +1,6 @@
-# dotfiles
+# Forrest's dotfiles
 
-My dotfiles. Running `install.sh` ① links the [config](./config) directory to `~/.config` and [bin](./bin) to `~/.local/bin` a la GNU Stow, ② installs [some apps](./config/homebrew/Brewfile) if Homebrew is installed, and ③ configures shells and git. It supports fish and bash by sourcing in the output of [`init_shell [fish|bash]`](./bin/init_shell).
+This repository contains scripts and config files for my Linux & Mac development environments. Running `install.sh` installs [my config files](./config), adds [my scripts](./bin) to `$PATH`, and installs [some packages](./config/homebrew/Brewfile) via [Homebrew](https://brew.sh/). It supports [fish](https://fishshell.com/) and [bash](https://www.gnu.org/software/bash/) by sourcing in the output of [`init_shell [fish|bash]`](./bin/init_shell).
 
 ## Setup
 
