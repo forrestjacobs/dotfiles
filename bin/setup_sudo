@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+
+if getent group sudo > /dev/null; then
+  target_group="sudo"
+elif getent group wheel > /dev/null; then
+  target_group="wheel"
+else
+  echo "could not determine sudo group; exiting"
+  exit 1
+fi
+
+echo "$target_group ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/50-nopasswd"
