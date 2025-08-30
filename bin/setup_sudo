@@ -10,4 +10,4 @@ else
   exit 1
 fi
 
-echo "$target_group ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/50-nopasswd"
+echo "%$target_group ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/50-nopasswd"
