@@ -18,12 +18,17 @@ if ! brew bundle --file ./config/homebrew/Brewfile; then
 fi
 
 echo
-echo 'Configuring bash'
-bashinitline='[ -f ~/.config/bash/bashrc ] && . ~/.config/bash/bashrc'
-if ! grep -qxF "$bashinitline" "${HOME}/.bashrc"; then
-  echo 'Adding bash config'
-  echo "$bashinitline" >> "${HOME}/.bashrc"
-fi
+echo 'Configuring shells'
+add_line() {
+  if ! grep -qxF "$2" "${HOME}/$1"; then
+    echo "Updating $1"
+    echo "$2" >> "${HOME}/$1"
+  fi
+}
+# shellcheck disable=SC2016
+add_line .bashrc 'eval "$(~/.local/bin/init_shell bash)"'
+# shellcheck disable=SC2016
+add_line .zshrc 'eval "$(~/.local/bin/init_shell zsh)"'
 
 echo
 echo 'Configuring git'
