@@ -55,6 +55,12 @@ fi
 if [ -f "${HOME}/.gitconfig" ]; then
   echo "Run 'mv ~/.gitconfig ~/.config/git' to move gitconfig to the XDG directory."
 fi
+if [[ "$(git config --global credential.https://github.com.helper)" != *"gh auth git-credential"* ]]; then
+  echo "Install and set up the GitHub CLI:"
+  echo "  brew install gh"
+  echo "  gh auth login"
+  echo "  gh auth setup-git"
+fi
 if [ ! -f /etc/sudoers.d/50-nopasswd ]; then
   echo "Run 'setup_sudo' to set up passwordless sudo."
 fi
