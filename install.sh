@@ -13,10 +13,8 @@ eval "$(shell=bash ./config/init_shell/conf.d/10-setup.sh)"
 
 echo
 echo "Calling 'brew bundle'"
-if has brew; then
-  brew bundle --file ./config/homebrew/Brewfile
-else
-  echo "homebrew is not installed; skipping"
+if ! brew bundle --file ./config/homebrew/Brewfile; then
+  echo "homebrew failed; skipping"
 fi
 
 echo
