@@ -48,14 +48,18 @@ git_config pull.ff only
 echo
 echo 'Done!'
 
+echo
+if ! has brew; then
+  echo "Follow instructions at https://brew.sh/ to install homebrew, then rerun install.sh to get additional packages."
+fi
 if [ -f "${HOME}/.gitconfig" ]; then
-  echo "run 'mv ~/.gitconfig ~/.config/git' to move gitconfig to the XDG directory"
+  echo "Run 'mv ~/.gitconfig ~/.config/git' to move gitconfig to the XDG directory."
 fi
 if [ ! -f /etc/sudoers.d/50-nopasswd ]; then
-  echo "run 'setup_sudo' to set up passwordless sudo"
+  echo "Run 'setup_sudo' to set up passwordless sudo."
 fi
 if [[ $(basename "$SHELL") != "fish" ]]; then
-  echo "run 'chsh_fish' to set up fish"
+  echo "Run 'chsh_fish' to set up fish."
 fi
 
 popd > /dev/null
