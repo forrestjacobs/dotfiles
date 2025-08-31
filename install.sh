@@ -32,8 +32,13 @@ if [ ! -f "${HOME}/.gitconfig" ]; then
   touch "${HOME}/.config/git/config"
 fi
 
-git config --global init.defaultBranch main
-git config --global pull.ff only
+git_config() {
+  if [[ "$(git config --global "$1")" != "$2" ]]; then
+    git config --global "$1" "$2"
+  fi
+}
+git_config init.defaultBranch main
+git_config pull.ff only
 
 echo
 echo 'Done!'
