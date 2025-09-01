@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
 set -e
 
-for target_group in sudo admin wheel; do
-  if getent group "$target_group" > /dev/null; then
-    echo "%$target_group ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/50-nopasswd"
-    exit
-  fi
-done
+# Set up Touch ID sudo on Darwin
+if [[ "$(uname)" == "Darwin" ]]; then
+  echo "auth       sufficient     pam_tid.so" | sudo tee "/etc/pam.d/sudo_local"
+  exit
+fi
 
-echo "could not determine sudo group"
+# Set up passwordless sudo on Linux
+[ -f /etc/os-release ] && . /etc/os-release
+if [[ "$ID" == "debian" ]]; then
+  echo "%sudo ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/50-nopasswd"
+  exit
+fi
+
+echo "Unexpected"
 exit 1

@@ -61,8 +61,8 @@ if [[ "$(git config --global credential.https://github.com.helper)" != *"gh auth
   echo "  gh auth login"
   echo "  gh auth setup-git"
 fi
-if [ ! -f /etc/sudoers.d/50-nopasswd ]; then
-  echo "Run 'setup_sudo' to set up passwordless sudo."
+if [ ! -f /etc/sudoers.d/50-nopasswd ] && [ ! -f /etc/pam.d/sudo_local ]; then
+  echo "Run 'setup_sudo' to set up Touch ID or passwordless sudo."
 fi
 if [[ $(basename "$SHELL") != "fish" ]]; then
   echo "Run 'chsh_fish' to set up fish."
