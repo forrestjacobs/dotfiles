@@ -21,9 +21,15 @@
         pkgs.bat
         pkgs.eza
         pkgs.fish
+        pkgs.fd
         pkgs.fzf
+        pkgs.gitui
         pkgs.helix
+        pkgs.htop
         pkgs.patchutils
+        pkgs.ripgrep
+        pkgs.starship
+        pkgs.wget
         pkgs.zoxide
       ];
 
@@ -34,14 +40,9 @@
         recursive = true;
       };
 
-      programs.git = {
-        enable = true;
-        userName = "Forrest Jacobs";
-        userEmail = "forrestjacobs@gmail.com";
-        extraConfig = {
-          init.defaultBranch = "main";
-          pull.ff = "only";
-        };
+      programs.git.extraConfig = {
+        init.defaultBranch = "main";
+        pull.ff = "only";
       };
     });
   };
