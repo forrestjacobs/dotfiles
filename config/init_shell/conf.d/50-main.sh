@@ -51,6 +51,9 @@ if has mise; then
   add_path "$HOME"/.local/share/mise/shims
 fi
 
+# starship
+p_export STARSHIP_LOG error
+
 # sudo
 p_abbr se 'sudo -e'
 
