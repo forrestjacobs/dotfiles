@@ -2,11 +2,19 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 add_newline = false
+command_timeout = 30
+format = '$directory$git_branch$git_state$git_status$cmd_duration$python$character'
 
-[line_break]
-disabled = true
+[directory]
+truncation_length = 1
+fish_style_pwd_dir_length = 1
 
 [git_branch]
-symbol = ""
-format = "[$symbol$branch(:$remote_branch)]($style) "
+format = "[$branch(:$remote_branch)]($style) "
 ignore_branches = [ "main", "master" ]
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+
+[python]
+format = "([$virtualenv]($style) )"
