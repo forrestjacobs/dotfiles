@@ -10,5 +10,5 @@ if has starship; then
 fi
 
 if has zoxide; then
-  zoxide init "${shell:?}" --cmd cd
+  zoxide init "${shell:?}"
 fi
