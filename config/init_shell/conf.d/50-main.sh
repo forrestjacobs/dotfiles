@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
 
-# `exec term` if mosh-server is the parent
-# TODO: Do directly in this script
-if [[ "${shell:?}" = "fish" ]]; then
-  echo "if type -q term; and test (ps -p (string trim (ps -p \$fish_pid -o ppid=)) -o comm=) = 'mosh-server'"
-  echo "  exec term"
-  echo "end"
-fi
-
 # EDITOR
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
   p_export EDITOR code_wait
