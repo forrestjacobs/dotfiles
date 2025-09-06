@@ -28,8 +28,8 @@ if [[ "${shell:?}" = "fish" ]]; then
 fi
 if has eza; then
   p_alias ls 'eza'
-  p_alias ll 'eza -aagl'
-  p_alias lll 'eza -glT --level=2'
+  p_alias ll 'eza -aagl --smart-group'
+  p_alias lll 'eza -lT --level=2'
 else
   p_alias ll 'ls -al'
 fi
