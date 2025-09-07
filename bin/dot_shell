@@ -3,7 +3,7 @@
 # shellcheck disable=SC2034
 shell=$1
 
-for f in ~/.config/init_shell/conf.d/*.sh; do
+for f in ~/.config/dotfiles/shell/*.sh; do
   # shellcheck disable=SC1090
   . "$f"
 done

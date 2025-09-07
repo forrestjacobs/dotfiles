@@ -4,12 +4,12 @@ set -e
 pushd "$(readlink -f "${HOME}/.local/dotfiles")" > /dev/null
 
 echo 'Linking config files'
-./bin/restow config "${HOME}/.config"
-./bin/restow bin "${HOME}/.local/bin"
+./bin/dot_stow config "${HOME}/.config"
+./bin/dot_stow bin "${HOME}/.local/bin"
 
 echo
 echo 'Initializing shell'
-eval "$(shell=bash ./config/init_shell/conf.d/10-setup.sh)"
+eval "$(shell=bash ./config/dotfiles/shell/10-setup.sh)"
 
 echo
 echo "Calling 'brew bundle'"
@@ -26,9 +26,9 @@ add_line() {
   fi
 }
 # shellcheck disable=SC2016
-add_line .bashrc 'eval "$(~/.local/bin/init_shell bash)"'
+add_line .bashrc 'eval "$(~/.local/bin/dot_shell bash)"'
 # shellcheck disable=SC2016
-add_line .zshrc 'eval "$(~/.local/bin/init_shell zsh)"'
+add_line .zshrc 'eval "$(~/.local/bin/dot_shell zsh)"'
 
 echo
 echo 'Configuring git'

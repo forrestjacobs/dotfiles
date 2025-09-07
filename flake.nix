@@ -33,7 +33,7 @@
         pkgs.zoxide
       ];
 
-      home.file.".local/bin/init_shell".source = "${dotfilesBin}/bin/init_shell";
+      home.file.".local/bin/dot_shell".source = "${dotfilesBin}/bin/dot_shell";
 
       home.file."${config.xdg.configHome}" = {
         source = ./config;

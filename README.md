@@ -1,6 +1,6 @@
 # Forrest's dotfiles
 
-This repository contains scripts and config files for my Mac & Linux development environments. Running `install.sh` installs [my config files](./config), adds [my scripts](./bin) to `$PATH`, and installs [some packages](./config/homebrew/Brewfile) via [Homebrew](https://brew.sh/). It supports [fish](https://fishshell.com/), [bash](https://www.gnu.org/software/bash/), and [zsh](https://www.zsh.org/) by sourcing in the output of [`init_shell [fish|bash|zsh]`](./bin/init_shell).
+This repository contains scripts and config files for my Mac & Linux development environments. Running `install.sh` installs [my config files](./config), adds [my scripts](./bin) to `$PATH`, and installs [some packages](./config/homebrew/Brewfile) via [Homebrew](https://brew.sh/). It supports [fish](https://fishshell.com/), [bash](https://www.gnu.org/software/bash/), and [zsh](https://www.zsh.org/) by sourcing in the output of [`dot_shell [fish|bash|zsh]`](./bin/dot_shell).
 
 ## Used on
 
