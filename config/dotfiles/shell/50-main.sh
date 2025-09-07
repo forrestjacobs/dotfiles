@@ -24,6 +24,9 @@ if has eza; then
   p_alias lll 'eza -lT --level=2'
 else
   p_alias ll 'ls -al'
+  if has tree; then
+    p_alias lll 'tree --metafirst -puhDL 2'
+  fi
 fi
 
 # fish
