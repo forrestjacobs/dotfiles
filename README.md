@@ -21,7 +21,7 @@ This repository contains scripts and config files for my Mac & Linux development
    ```
 3. Check out this project and run `./install.sh`.
 
-There may be additional instructions printed at the end of the script's output. `install.sh` is idempotent, so you can run it again to see the instructions later.
+There may be additional instructions printed at the end of the script's output. Run `dot_doctor` to see these instructions later.
 
 ### Home Manager
 

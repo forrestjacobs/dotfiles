@@ -2,7 +2,7 @@
 set -e
 
 if ! has brew; then
-  echo "Follow instructions at https://brew.sh/ to install homebrew, then run dot_install to get additional packages."
+  echo "Follow instructions at https://brew.sh/ to install homebrew, then run 'dot_install' to get additional packages."
 fi
 if [ -f "${HOME}/.gitconfig" ]; then
   echo "Run 'mv ~/.gitconfig ~/.config/git' to move gitconfig to the XDG directory."
