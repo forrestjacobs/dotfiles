@@ -49,23 +49,6 @@ echo
 echo 'Done!'
 
 echo
-if ! has brew; then
-  echo "Follow instructions at https://brew.sh/ to install homebrew, then rerun install.sh to get additional packages."
-fi
-if [ -f "${HOME}/.gitconfig" ]; then
-  echo "Run 'mv ~/.gitconfig ~/.config/git' to move gitconfig to the XDG directory."
-fi
-if [[ "$(git config --global credential.https://github.com.helper)" != *"gh auth git-credential"* ]]; then
-  echo "Install and set up the GitHub CLI:"
-  echo "  brew install gh"
-  echo "  gh auth login"
-  echo "  gh auth setup-git"
-fi
-if [ ! -f /etc/sudoers.d/50-nopasswd ] && [ ! -f /etc/pam.d/sudo_local ]; then
-  echo "Run 'setup_sudo' to set up Touch ID or passwordless sudo."
-fi
-if [[ $(basename "$SHELL") != "fish" ]]; then
-  echo "Run 'chsh_fish' to set up fish."
-fi
+dot_doctor
 
 popd > /dev/null
