@@ -2,7 +2,7 @@ brew "bat"
 brew "eza"
 brew "fd"
 brew "fish" if OS.mac?
-cask "font-monaspace" if OS.mac?
+cask "font-jetbrains-mono-nerd-font" if OS.mac?
 brew "fzf"
 brew "gitui"
 brew "helix"
