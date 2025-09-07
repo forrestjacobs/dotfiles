@@ -6,7 +6,7 @@ pushd "$(dirname "${BASH_SOURCE:0}")" > /dev/null
 symlink="${HOME}/.local/dotfiles"
 target="$(pwd)"
 if [ ! -L "$symlink" ]; then
-  mkdir -p "$(dirname "$target")"
+  mkdir -p "$(dirname "$symlink")"
   ln -s "$target" "$symlink"
 elif [ "$(readlink -f "$symlink")" != "$target" ]; then
   echo "$symlink already exists and is pointing to something else; exiting"
