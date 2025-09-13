@@ -56,6 +56,7 @@ p_export MANOPT --no-justification
 p_export MISE_FISH_AUTO_ACTIVATE 0
 if has mise; then
   add_path "$HOME"/.local/share/mise/shims
+  p_abbr mr 'mise run'
 fi
 
 # starship
