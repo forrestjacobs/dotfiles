@@ -3,8 +3,20 @@
 # EDITOR
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
   p_export EDITOR code_wait
-elif has hx; then
-  p_export EDITOR "$(which hx)"
+else
+  for editor in hx nano; do
+    if has "$editor"; then
+      p_export EDITOR "$editor"
+      break
+    fi
+  done
+fi
+
+if [[ -n "$EDITOR" ]]; then
+  p_abbr e "$EDITOR"
+fi
+if has sudo; then
+  p_abbr E 'sudo -e'
 fi
 
 # bat
@@ -48,9 +60,6 @@ fi
 
 # starship
 p_export STARSHIP_LOG error
-
-# sudo
-p_abbr se 'sudo -e'
 
 # systemctl
 if has systemctl; then
