@@ -64,5 +64,6 @@ p_export STARSHIP_LOG error
 
 # systemctl
 if has systemctl; then
+  p_abbr s systemctl
   p_abbr S 'sudo systemctl'
 fi
