@@ -2,20 +2,25 @@
 set -e
 
 if ! has brew; then
-  echo "Follow instructions at https://brew.sh/ to install homebrew, then run 'dot_install' to get additional packages."
+  echo "* Install homebrew & packages:"
+  echo "  /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+  echo "  dot_reinstall"
 fi
 if [ -f "${HOME}/.gitconfig" ]; then
-  echo "Run 'mv ~/.gitconfig ~/.config/git' to move gitconfig to the XDG directory."
+  echo "* Move gitconfig to the XDG directory:"
+  echo "  mv ~/.gitconfig ~/.config/git"
 fi
 if [[ "$(git config --global credential.https://github.com.helper)" != *"gh auth git-credential"* ]]; then
-  echo "Install and set up the GitHub CLI:"
+  echo "* Install and set up the GitHub CLI:"
   echo "  brew install gh"
   echo "  gh auth login"
   echo "  gh auth setup-git"
 fi
 if [ ! -f /etc/pam.d/sudo_local ] && [[ $(sudo -nl) != *"NOPASSWD: ALL"* ]]; then
-  echo "Run 'dot_setup_sudo' to set up Touch ID or passwordless sudo."
+  echo "* Set up Touch ID or passwordless sudo:"
+  echo "  dot_setup_sudo"
 fi
 if [[ $(basename "$SHELL") != "fish" ]]; then
-  echo "Run 'dot_setup_fish' to set up fish."
+  echo "* Set up fish:"
+  echo "  dot_setup_fish"
 fi
