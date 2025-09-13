@@ -13,7 +13,15 @@ brew "starship"
 brew "wget" if OS.mac?
 brew "zoxide"
 
-# Bash
+# LSPs
 brew "bash-language-server"
-brew "shellcheck"
-brew "shfmt"
+brew "fish-lsp"
+brew "marksman" # markdown
+brew "ruff" # python
+brew "rust-analyzer"
+brew "shellcheck" # works with bash-languae-server
+brew "shfmt" # works with bash-languae-server
+brew "taplo" # toml
+brew "typescript-language-server"
+brew "vscode-langservers-extracted" # css, html, json
+brew "yaml-language-server"
