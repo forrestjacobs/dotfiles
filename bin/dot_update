@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-pushd "$(readlink -f "${HOME}/.local/dotfiles")" > /dev/null
+pushd "${HOME}/dotfiles" > /dev/null
 git fetch
 test "$(git branch --show-current)" = "main"
 git merge --ff-only
+./install.sh
 popd > /dev/null
-
-dot_install
