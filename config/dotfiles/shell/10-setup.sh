@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 
 escape () {
-  local text=$1
-  text=${text//\\/\\\\}
-  text=${text//\'/\\\'}
-  echo "'$text'"
+  printf "%q\n" "$1"
 }
 
 p_alias () {
