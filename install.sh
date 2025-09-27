@@ -4,31 +4,17 @@ set -e
 pushd "$(dirname "${BASH_SOURCE:0}")" > /dev/null
 
 echo 'Linking config files'
-./bin/dot_stow config "${HOME}/.config"
-./bin/dot_stow bin "${HOME}/.local/bin"
+./home/.local/bin/dot_stow home "${HOME}"
 
 echo
 echo 'Initializing shell'
-eval "$(shell=bash ./config/dotfiles/shell/10-setup.sh)"
+eval "$(shell=bash ./home/.config/dotfiles/shell/10-setup.sh)"
 
 echo
 echo "Calling 'brew bundle'"
-if ! brew bundle --file ./config/homebrew/Brewfile; then
+if ! brew bundle --file ./home/.config/homebrew/Brewfile; then
   echo "homebrew failed; skipping"
 fi
-
-echo
-echo 'Configuring shells'
-add_line() {
-  if ! grep -qxF "$2" "${HOME}/$1"; then
-    echo "Updating $1"
-    echo "$2" >> "${HOME}/$1"
-  fi
-}
-# shellcheck disable=SC2016
-add_line .bashrc 'eval "$(~/.local/bin/dot_shell bash)"'
-# shellcheck disable=SC2016
-add_line .zshrc 'eval "$(~/.local/bin/dot_shell zsh)"'
 
 echo
 echo 'Configuring git'

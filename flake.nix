@@ -5,7 +5,7 @@
     let
       dotfilesBin = (pkgs.stdenv.mkDerivation {
         name = "dotfiles-bin";
-        src = ./bin;
+        src = ./home/.local/bin;
         installPhase = ''
           mkdir -p $out/bin
           cp * $out/bin
@@ -36,7 +36,7 @@
       home.file.".local/bin/dot_shell".source = "${dotfilesBin}/bin/dot_shell";
 
       home.file."${config.xdg.configHome}" = {
-        source = ./config;
+        source = ./home/.config;
         recursive = true;
       };
 
