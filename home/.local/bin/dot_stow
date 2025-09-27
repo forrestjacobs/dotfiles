@@ -9,11 +9,12 @@ fi
 find "${1}" -type f '!' -name .DS_Store -exec bash -c '
   symlink="$1/${2#*/}"
   target="$(pwd)/${2}"
-  if [ ! -L "$symlink" ]; then
+  if [ -f "$symlink" ] && { [ ! -L "$symlink" ] || [ "$(readlink -f "$symlink")" != "$target" ]; }; then
+    echo "Moving $symlink to $symlink.old"
+    mv "$symlink" "$symlink.old"
+  fi
+  if [ ! -f "$symlink" ]; then
     mkdir -p "$(dirname "$symlink")"
     ln -s "$target" "$symlink"
-  elif [ "$(readlink -f $symlink)" != "$target" ]; then
-    echo "$symlink already exists and is pointing to something else; exiting"
-    exit 1
   fi
 ' find-bash "${2}" {} ';'
