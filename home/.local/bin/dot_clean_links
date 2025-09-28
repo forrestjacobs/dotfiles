@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -d "${1}" ]; then
+  find -L "${1}" -type l -exec rm -- {} +
+fi
