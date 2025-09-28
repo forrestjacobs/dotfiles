@@ -10,18 +10,11 @@ This repository contains scripts and config files for my Mac & Linux development
 
 ## Setup
 
-### Mac or Linux
+### Mac or Debian
 
-1. Install [Homebrew](https://brew.sh/). (Optional but recommended.)
-2. Install and set up the [GitHub CLI](https://cli.github.com/). (Also optional but recommended.)
-   ```bash
-   brew install gh
-   gh auth login
-   gh auth setup-git
-   ```
-3. Check out this project and run `./install.sh`.
+Check out this project and run `./install.sh`.
 
-There may be additional instructions printed at the end of the script's output. Run `dot_doctor` to see these instructions later.
+There will be additional instructions printed at the end of the script's output. Run `dot_doctor` to see these instructions later.
 
 ### Home Manager
 
