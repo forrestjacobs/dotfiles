@@ -5,7 +5,8 @@ pushd "$(dirname "${BASH_SOURCE:0}")" > /dev/null
 
 echo 'Linking config files'
 ./home/.local/bin/dot_clean_links "${HOME}/.config"
-./home/.local/bin/dot_clean_links "${HOME}/.local"
+./home/.local/bin/dot_clean_links "${HOME}/.local/bin"
+./home/.local/bin/dot_clean_links "${HOME}/.local/share"
 ./home/.local/bin/dot_stow home "${HOME}"
 
 echo
