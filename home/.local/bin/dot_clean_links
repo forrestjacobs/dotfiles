@@ -2,5 +2,9 @@
 set -e
 
 if [ -d "${1}" ]; then
-  find -L "${1}" -type l -exec rm -- {} +
+  find "${1}" -type l -exec sh -c '
+    for x; do
+      [ -e "$x" ] || rm "$x"
+    done
+  ' _ {} +
 fi
