@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -e
+
+if ! [ -f "$1" ]; then
+  echo "'$1' is not a regular file"
+  exit 1
+fi
+
+file="$(realpath "$1")"
+if [[ $file != "${HOME}/"* ]]; then
+  echo "'$1' is not in your home directory"
+  exit 2
+fi
+
+if [[ $file == "${HOME}/dotfiles/"* ]]; then
+  echo "'$1' is already in dotfiles"
+  exit 3
+fi
+file="${file#"${HOME}"/}"
+
+mkdir -p "${HOME}/dotfiles/home/$(dirname "$file")"
+mv "${HOME}/${file}" "${HOME}/dotfiles/home/${file}"
+ln -s "${HOME}/dotfiles/home/${file}" "${HOME}/${file}"
