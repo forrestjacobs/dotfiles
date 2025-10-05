@@ -1,0 +1,18 @@
+.TH "DOT_ADOPT" "1" "Oct 2025" "dotfiles" "dotfiles"
+.SH NAME
+dot_adopt \- migrate file to ~/dotfiles
+.SH SYNOPSIS
+.B dot_adopt
+\fIfile\fR
+.SH DESCRIPTION
+.B dot_adopt
+moves the given file to ~/dotfiles/home, then creates a softlink in its place
+pointing to the new location.
+
+It preserves the relative path from the home directory. For example, if you
+adopt ~/.config/tmux/tmux.conf, it would move the file to
+~/dotfiles/home/.config/tmux/tmux.conf.
+.SH EXAMPLES
+.TP
+Adopt .gitconfig:
+dot_adopt ~/.gitconfig
