@@ -3,9 +3,19 @@ theme = "base16_transparent"
 [editor]
 auto-format = false
 color-modes = true
+completion-replace = true
 cursor-shape.insert = "bar"
-indent-guides.render = true
+end-of-line-diagnostics = "hint"
 line-number = "relative"
+rulers = [ 80, 120 ]
+trim-trailing-whitespace = true
 
 [editor.file-picker]
 hidden = false
+
+[editor.indent-guides]
+render = true
+skip-levels = 1
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
