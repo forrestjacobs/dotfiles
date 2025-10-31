@@ -2,10 +2,11 @@
 set -e
 
 # Creates softlinks
-find "${1}" -type f '!' -name .DS_Store -exec bash -c '
+find "${1}" \( -type f -or -type l \) '!' -name .DS_Store -exec bash -c '
   symlink="$1/${2#*/}"
   target="$(pwd)/${2}"
-  if [ -f "$symlink" ] && { [ ! -L "$symlink" ] || [ "$(readlink -f "$symlink")" != "$target" ]; }; then
+  if [ -f "$symlink" ] && { [ ! -L "$symlink" ] || [ "$(readlink "$symlink")" != "$target" ]; }; then
+    readlink "$symlink"
     echo "Moving $symlink to $symlink.old"
     mv "$symlink" "$symlink.old"
   fi

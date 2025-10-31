@@ -17,6 +17,7 @@ brew "zoxide"
 # LSPs
 brew "bash-language-server"
 brew "fish-lsp"
+brew "harper" # English
 brew "marksman" # markdown
 brew "ruff" # python
 brew "rust-analyzer"
