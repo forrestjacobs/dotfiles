@@ -4,6 +4,10 @@
 command = "harper-ls"
 args = ["--stdio"]
 
+[language-server.harper-ls.config.harper-ls.linters]
+AvoidCurses = false
+BoringWords = true
+
 [[language]]
 name = "markdown"
 soft-wrap.enable = true
