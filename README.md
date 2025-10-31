@@ -26,6 +26,6 @@ Import [this flake](./flake.nix) in your [Home Manager](https://nix-community.gi
 
 In `settings.json`, set `dotfiles.repository` to `forrestjacobs/dotfiles`.
 
-#### Github Codespace
+#### GitHub Codespace
 
 In the [Codespaces settings page](https://github.com/settings/codespaces), check *Automatically install dotfiles* and select *forrestjacobs/dotfiles*.
