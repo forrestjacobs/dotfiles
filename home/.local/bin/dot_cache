@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -L "$1" ]; then
+  echo "'$1' is a symlink"
+  exit 1
+fi
+
+file="$(realpath "$1")"
+if [[ $file != "${HOME}/"* ]]; then
+  echo "'$1' is not in your home directory"
+  exit 2
+fi
+
+if [[ $file == "${HOME}/.cache/"* ]]; then
+  echo "'$1' is already in cache"
+  exit 3
+fi
+file="${file#"${HOME}"/}"
+
+mkdir -p "${HOME}/.cache/adopted/$(dirname "$file")"
+mv "${HOME}/${file}" "${HOME}/.cache/adopted/${file}"
+ln -s "${HOME}/.cache/adopted/${file}" "${HOME}/${file}"
