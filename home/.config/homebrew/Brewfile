@@ -1,3 +1,5 @@
+tap "domt4/autoupdate" if OS.mac?
+
 brew "bat"
 brew "eza"
 brew "fd"

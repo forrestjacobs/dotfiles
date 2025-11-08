@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-setups=( "brew" "gitconfig" "gh" "sudo" "fish" )
+setups=( "brew" "brew_autoupdate" "gitconfig" "gh" "sudo" "fish" )
 
 for name in "${setups[@]}"; do
   cmd="dot_setup_${name}"

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+describe() {
+  echo "Homebrew Autoupdate"
+}
+
+check() {
+  if has launchctl; then
+    launchctl | grep "com.github.domt4.homebrew-autoupdate"
+  fi
+}
+
+fix() {
+  dot_setup_brew
+  brew autoupdate start --cleanup --immediate
+}
+
+. "${HOME}/.local/lib/dot_setup.sh"
