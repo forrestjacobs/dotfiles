@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+describe() {
+  echo "GitHub CLI"
+}
+
+check() {
+  [[ "$(git config --global credential.https://github.com.helper)" = *"gh auth git-credential"* ]]
+}
+
+fix() {
+  brew install gh
+  gh auth login
+  gh auth setup-git
+}
+
+. "${HOME}/.local/lib/dot_setup.sh"

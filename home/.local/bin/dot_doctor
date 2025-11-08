@@ -1,26 +1,11 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-if ! has brew; then
-  echo "* Install homebrew & packages:"
-  echo "  /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
-  echo "  dot_reinstall"
-fi
-if [ -f "${HOME}/.gitconfig" ]; then
-  echo "* Move gitconfig to the XDG directory:"
-  echo "  mv ~/.gitconfig ~/.config/git"
-fi
-if [[ "$(git config --global credential.https://github.com.helper)" != *"gh auth git-credential"* ]]; then
-  echo "* Install and set up the GitHub CLI:"
-  echo "  brew install gh"
-  echo "  gh auth login"
-  echo "  gh auth setup-git"
-fi
-if [ ! -f /etc/pam.d/sudo_local ] && [[ $(sudo -nl) != *"NOPASSWD: ALL"* ]]; then
-  echo "* Set up Touch ID or passwordless sudo:"
-  echo "  dot_setup_sudo"
-fi
-if [[ $(basename "$SHELL") != "fish" ]]; then
-  echo "* Set up fish:"
-  echo "  dot_setup_fish"
-fi
+setups=( "brew" "gitconfig" "gh" "sudo" "fish" )
+
+for name in "${setups[@]}"; do
+  cmd="dot_setup_${name}"
+  if ! "${cmd}" check; then
+    echo "Call '${cmd}' to set up $("${cmd}" description)"
+  fi
+done

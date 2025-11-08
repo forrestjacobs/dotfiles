@@ -1,17 +1,28 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-# Set up Touch ID sudo on Darwin
-if [[ "$(uname)" == "Darwin" ]]; then
-  echo "auth sufficient pam_tid.so" | sudo tee "/etc/pam.d/sudo_local"
-  exit
-fi
+describe() {
+  if [[ "$(uname)" == "Darwin" ]]; then
+    echo "Touch ID sudo"
+  else
+    echo "passwordless sudo"
+  fi
+}
 
-# Set up passwordless sudo on Debian
-if has lsb_release && [[ "$(lsb_release -is)" == "Debian" ]]; then
-  echo "%sudo ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/50-nopasswd"
-  exit
-fi
+check() {
+  [ -f /etc/pam.d/sudo_local ] || [[ $(sudo -nl) = *"NOPASSWD: ALL"* ]]
+}
 
-echo "Only works on macOS and Debian"
-exit 1
+fix() {
+  # Set up Touch ID sudo on Darwin
+  if [[ "$(uname)" == "Darwin" ]]; then
+    echo "auth sufficient pam_tid.so" | sudo tee "/etc/pam.d/sudo_local"
+    exit
+  else
+    sudo mkdir -p "/etc/sudoers.d"
+    echo "%sudo ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/50-nopasswd"
+    exit
+  fi
+}
+
+. "${HOME}/.local/lib/dot_setup.sh"

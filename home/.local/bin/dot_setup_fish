@@ -1,25 +1,32 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-if has lsb_release && [[ "$(lsb_release -is)" == "Debian" ]] && (( "$(lsb_release -rs)" >= 12 )); then
-  sudo DEBIAN_FRONTEND=noninteractive apt-get update --yes
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends fish
-fi
+describe() {
+  echo "fish shell"
+}
 
-if ! has fish; then
-  echo "fish is not installed; install fish and then try again"
-  exit 1
-fi
+check() {
+  [ "$(basename "$SHELL")" = "fish" ]
+}
 
-if [[ $(basename "$SHELL") = "fish" ]]; then
-  echo "Your shell is already fish; exiting"
-  exit 2
-fi
+fix() {
+  if has lsb_release && [[ "$(lsb_release -is)" == "Debian" ]] && (( "$(lsb_release -rs)" >= 12 )); then
+    sudo DEBIAN_FRONTEND=noninteractive apt-get update --yes
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends fish
+  fi
 
-fish_path="$(type -P fish)"
-if ! grep -q -F "${fish_path}" /etc/shells; then
-  echo "Adding ${fish_path} to /etc/shells"
-  echo "${fish_path}" | sudo tee -a /etc/shells
-fi
-echo "Changing shell to ${fish_path}"
-sudo chsh -s "${fish_path}" "$USER"
+  if ! has fish; then
+    echo "install fish and then try again"
+    exit 1
+  fi
+
+  fish_path="$(type -P fish)"
+  if ! grep -q -F "${fish_path}" /etc/shells; then
+    echo "Adding ${fish_path} to /etc/shells"
+    echo "${fish_path}" | sudo tee -a /etc/shells
+  fi
+  echo "Changing shell to ${fish_path}"
+  sudo chsh -s "${fish_path}" "$USER"
+}
+
+. "${HOME}/.local/lib/dot_setup.sh"
