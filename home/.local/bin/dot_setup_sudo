@@ -10,7 +10,11 @@ describe() {
 }
 
 check() {
-  [ -f /etc/pam.d/sudo_local ] || [[ $(sudo -nl) = *"NOPASSWD: ALL"* ]]
+  if [[ "$(uname)" == "Darwin" ]]; then
+    [ -f /etc/pam.d/sudo_local ]
+  else
+    [[ $(sudo -nl) = *"NOPASSWD: ALL"* ]]
+  fi
 }
 
 fix() {

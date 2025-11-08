@@ -10,7 +10,10 @@ check() {
 }
 
 fix() {
-  brew install gh
+  if ! has gh; then
+    dot_setup_brew
+    brew install gh
+  fi
   gh auth login
   gh auth setup-git
 }
