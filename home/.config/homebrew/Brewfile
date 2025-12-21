@@ -6,9 +6,9 @@ brew "fd"
 brew "fish" if OS.mac?
 cask "font-jetbrains-mono-nerd-font" if OS.mac?
 brew "fzf"
-brew "gitui"
 brew "helix"
 brew "htop"
+brew "lazygit"
 brew "mise"
 brew "patchutils" if OS.mac?
 brew "ripgrep"
@@ -19,8 +19,6 @@ brew "zoxide"
 # LSPs
 brew "bash-language-server"
 brew "fish-lsp"
-brew "harper" # English
-brew "marksman" # markdown
 brew "ruff" # python
 brew "rust-analyzer"
 brew "shellcheck" # works with bash-languae-server

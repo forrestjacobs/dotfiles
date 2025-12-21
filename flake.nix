@@ -20,12 +20,13 @@
         dotfilesBin
         pkgs.bat
         pkgs.eza
-        pkgs.fish
         pkgs.fd
+        pkgs.fish
         pkgs.fzf
-        pkgs.gitui
         pkgs.helix
         pkgs.htop
+        pkgs.lazygit
+        pkgs.mise
         pkgs.patchutils
         pkgs.ripgrep
         pkgs.starship

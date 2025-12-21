@@ -1,1 +1,0 @@
-../../../.config/harper-ls/dictionary.txt
