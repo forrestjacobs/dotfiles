@@ -13,5 +13,3 @@ fix() {
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   dot_reinstall
 }
-
-. "${HOME}/.local/lib/dot_setup.sh"

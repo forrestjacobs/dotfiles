@@ -17,5 +17,3 @@ fix() {
   gh auth login
   gh auth setup-git
 }
-
-. "${HOME}/.local/lib/dot_setup.sh"

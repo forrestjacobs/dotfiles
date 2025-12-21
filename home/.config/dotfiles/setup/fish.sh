@@ -28,5 +28,3 @@ fix() {
   echo "Changing shell to ${fish_path}"
   sudo chsh -s "${fish_path}" "$USER"
 }
-
-. "${HOME}/.local/lib/dot_setup.sh"

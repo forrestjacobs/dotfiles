@@ -28,5 +28,3 @@ fix() {
     exit
   fi
 }
-
-. "${HOME}/.local/lib/dot_setup.sh"

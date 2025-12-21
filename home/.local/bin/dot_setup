@@ -2,15 +2,18 @@
 set -euo pipefail
 
 case "${1:-}" in
-  description)
+  describe)
+    . "${HOME}/.config/dotfiles/setup/${2}.sh"
     describe
     ;;
 
   check)
+    . "${HOME}/.config/dotfiles/setup/${2}.sh"
     check
     ;;
 
   *)
+    . "${HOME}/.config/dotfiles/setup/${1}.sh"
     if check; then
       read -p "Set up $(describe)? " -n 1 -r
       echo

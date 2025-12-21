@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-setups=( "brew" "brew_autoupdate" "gitconfig" "gh" "sudo" "fish" )
-
-for name in "${setups[@]}"; do
-  cmd="dot_setup_${name}"
-  if ! "${cmd}" check; then
-    echo "Call '${cmd}' to set up $("${cmd}" description)"
+for script_path in "${HOME}"/.config/dotfiles/setup/*.sh; do
+  script_name=$(basename -- "$script_path" .sh)
+  if ! dot_setup check "${script_name}"; then
+    echo "Call 'dot_setup ${script_name}' to set up $(dot_setup describe "${script_name}")"
   fi
 done

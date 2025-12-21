@@ -12,5 +12,3 @@ check() {
 fix() {
   mv "${HOME}/.gitconfig" "${HOME}/.config/git"
 }
-
-. "${HOME}/.local/lib/dot_setup.sh"
