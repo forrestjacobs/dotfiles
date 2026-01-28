@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 read -ra cmd < <(term cat)
 ssh -t "$1" "${cmd[@]}"
-tput reset
+stty sane
