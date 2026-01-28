@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
-exec tmux -u new -A -s main
+cmd="tmux -u new -A -s main"
+if [ "$1" == cat ]; then
+  echo "$cmd"
+  exit
+fi
+exec $cmd

@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-ssh -t "$1" term
+read -ra cmd < <(term cat)
+ssh -t "$1" "${cmd[@]}"
 tput reset
