@@ -10,5 +10,5 @@ check() {
 }
 
 fix() {
-  mv "${HOME}/.gitconfig" "${HOME}/.config/git"
+  mv "${HOME}/.gitconfig" "${HOME}/.config/git/config"
 }

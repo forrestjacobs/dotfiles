@@ -14,7 +14,7 @@ case "${1:-}" in
 
   *)
     . "${HOME}/.config/dotfiles/setup/${1}.sh"
-    if check; then
+    if ! check; then
       read -p "Set up $(describe)? " -n 1 -r
       echo
       if [[ $REPLY =~ ^[Yy]$ ]]; then
