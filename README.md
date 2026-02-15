@@ -16,6 +16,29 @@ Check out this project and run `./install.sh`.
 
 There will be additional instructions printed at the end of the script's output. Run `dot_doctor` to see these instructions later.
 
+#### Setting up new Debian host
+
+```bash
+# Install dependencies
+sudo apt update && sudo apt upgrade
+sudo apt install build-essential curl fish git
+
+# Install homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+brew install gcc gh
+
+# Set up gh
+gh auth login
+gh auth setup-git
+
+# Install dotfiles
+gh repo clone forrestjacobs/dotfiles
+./dotfiles/install.sh
+# in a new terminal:
+dot_doctor
+```
+
 ### Home Manager
 
 Import [this flake](./flake.nix) in your [Home Manager](https://nix-community.github.io/home-manager/) config.
