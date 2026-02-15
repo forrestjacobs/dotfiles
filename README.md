@@ -35,7 +35,7 @@ gh auth setup-git
 # Install dotfiles
 gh repo clone forrestjacobs/dotfiles
 ./dotfiles/install.sh
-# in a new terminal:
+exec fish
 dot_doctor
 ```
 
