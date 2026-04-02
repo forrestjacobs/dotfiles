@@ -15,7 +15,7 @@ eval "$(shell=bash ./home/.config/dotfiles/shell/10-setup.sh)"
 
 echo
 echo "Calling 'brew bundle'"
-if ! brew bundle --file ./home/.config/homebrew/Brewfile; then
+if ! brew bundle --file ./home/.config/homebrew/Brewfile --no-upgrade; then
   echo "homebrew failed; skipping"
 fi
 
