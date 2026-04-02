@@ -20,27 +20,6 @@ if ! brew bundle --file ./home/.config/homebrew/Brewfile; then
 fi
 
 echo
-echo 'Configuring git'
-git_config_nice() {
-  if ! git config --global "$1"; then
-    git config --global "$1" "$2"
-  fi
-}
-git_config() {
-  if [[ "$(git config --global "$1")" != "$2" ]]; then
-    git config --global "$1" "$2"
-  fi
-}
-if [ ! -f "${HOME}/.gitconfig" ] && [ ! -f "${HOME}/.config/git/config" ]; then
-  mkdir -p "${HOME}/.config/git"
-  touch "${HOME}/.config/git/config"
-fi
-git_config_nice user.name "Forrest Jacobs"
-git_config_nice user.email forrestjacobs@gmail.com
-git_config init.defaultBranch main
-git_config pull.ff only
-
-echo
 echo 'Done!'
 
 echo
