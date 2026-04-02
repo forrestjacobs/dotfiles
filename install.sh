@@ -40,13 +40,6 @@ git_config_nice user.email forrestjacobs@gmail.com
 git_config init.defaultBranch main
 git_config pull.ff only
 
-if has defaults; then
-  echo
-  echo "Configuring iTerm"
-  defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$(readlink -f ./iTerm)"
-  defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
-fi
-
 echo
 echo 'Done!'
 
