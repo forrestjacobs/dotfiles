@@ -12,12 +12,16 @@ if [[ $file != "${HOME}/"* ]]; then
   exit 2
 fi
 
-if [[ $file == "${HOME}/dotfiles/"* ]]; then
+pushd "$(dirname "$(realpath "${BASH_SOURCE:0}")")" > /dev/null
+dotfile_path="$(git rev-parse --show-toplevel)"
+popd > /dev/null
+
+if [[ $file == "${dotfile_path}/"* ]]; then
   echo "'$1' is already in dotfiles"
   exit 3
 fi
 file="${file#"${HOME}"/}"
 
-mkdir -p "${HOME}/dotfiles/home/$(dirname "$file")"
-mv "${HOME}/${file}" "${HOME}/dotfiles/home/${file}"
-ln -s "${HOME}/dotfiles/home/${file}" "${HOME}/${file}"
+mkdir -p "${dotfile_path}/home/$(dirname "$file")"
+mv "${HOME}/${file}" "${dotfile_path}/home/${file}"
+ln -s "${dotfile_path}/home/${file}" "${HOME}/${file}"

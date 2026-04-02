@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
-pushd "${HOME}/dotfiles" > /dev/null
+pushd "$(dirname "$(realpath "${BASH_SOURCE:0}")")" > /dev/null
+pushd "$(git rev-parse --show-toplevel)" > /dev/null
+
 git fetch
 test "$(git branch --show-current)" = "main"
 git merge --ff-only
 ./install.sh
+
+popd > /dev/null
 popd > /dev/null

@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
-"${HOME}/dotfiles/install.sh"
+pushd "$(dirname "$(realpath "${BASH_SOURCE:0}")")" > /dev/null
+pushd "$(git rev-parse --show-toplevel)" > /dev/null
+
+./install.sh
+
+popd > /dev/null
+popd > /dev/null
