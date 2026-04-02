@@ -6,8 +6,8 @@ describe() {
 }
 
 check() {
-  git config --global user.name > /dev/null
-  git config --global user.email > /dev/null
+  git config --global user.name
+  git config --global user.email
   [[ $(git config --global init.defaultBranch) = "main" ]]
   [[ $(git config --global pull.ff) = "only" ]]
 }

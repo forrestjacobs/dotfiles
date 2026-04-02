@@ -9,12 +9,12 @@ case "${1:-}" in
 
   check)
     . "${HOME}/.config/dotfiles/setup/${2}.sh"
-    check
+    check > /dev/null
     ;;
 
   *)
     . "${HOME}/.config/dotfiles/setup/${1}.sh"
-    if ! check; then
+    if ! check > /dev/null; then
       read -p "Set up $(describe)? " -n 1 -r
       echo
       if [[ $REPLY =~ ^[Yy]$ ]]; then
