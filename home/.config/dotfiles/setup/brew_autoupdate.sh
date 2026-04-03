@@ -12,6 +12,6 @@ check() {
 }
 
 fix() {
-  dot_setup_brew
+  dot_setup brew
   brew autoupdate start --cleanup --immediate
 }

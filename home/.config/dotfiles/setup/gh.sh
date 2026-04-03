@@ -11,7 +11,7 @@ check() {
 
 fix() {
   if ! has gh; then
-    dot_setup_brew
+    dot_setup brew
     brew install gh
   fi
   gh auth login
