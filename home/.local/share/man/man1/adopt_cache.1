@@ -1,0 +1,18 @@
+.TH "ADOPT_CACHE" "1" "Apr 2026" "dotfiles" "dotfiles"
+.SH NAME
+adopt_cache \- migrate directory to cache
+.SH SYNOPSIS
+.B adopt_cache
+\fIdirectory\fR
+.SH DESCRIPTION
+.B adopt_cache
+moves the given directory to ~/.cache/adopted, then creates a softlink in its
+place pointing to the new location.
+
+It preserves the relative path from the home directory. For example, if you
+adopt ~/project/example/target, it would move the file to
+~/.cache/adopted/project/example/target.
+.SH EXAMPLES
+.TP
+Adopt the target directory:
+adopt_cache target

@@ -1,0 +1,17 @@
+.TH "CODE_WAIT" "1" "Apr 2026" "dotfiles" "dotfiles"
+.SH NAME
+code_wait \- synchronously edit file in VS Code
+.SH SYNOPSIS
+.B code_wait
+\fIfile\fR
+.SH DESCRIPTION
+.B code_wait
+edits the given file with VS Code. Whereas
+.B code
+edits the file and exits immediately,
+.B code_wait
+waits for the files to be closed before exiting.
+.SH EXAMPLES
+.TP
+Edit a file:
+code_wait example.rs
