@@ -6,4 +6,4 @@ dotfiles_path="$(dot_path)"
 git -C "${dotfiles_path}" fetch
 test "$(git -C "${dotfiles_path}" branch --show-current)" = "main"
 git -C "${dotfiles_path}" merge --ff-only
-"${dotfiles_path}/install.sh"
+dot_reinstall
