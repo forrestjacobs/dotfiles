@@ -3,6 +3,8 @@
 dot_setup \- manage dotfiles setup
 .SH SYNOPSIS
 .B dot_setup
+.br
+.B dot_setup
 \fBdescribe\fR \fIname\fR
 .br
 .B dot_setup
@@ -14,8 +16,10 @@ dot_setup \- manage dotfiles setup
 .B dot_setup
 manages setup scripts located in ~/.local/share/dotfiles/setup/.
 .PP
+When called with no arguments, it checks all setup scripts and reports which ones need to be configured.
+.PP
 With \fBdescribe\fR, it prints the description of the setup script.
 .PP
 With \fBcheck\fR, it checks if the setup is already done.
 .PP
-Without a subcommand, it checks the setup and prompts to run it if not done.
+When called with just a \fIname\fR, it checks the setup and prompts to run it if not done.

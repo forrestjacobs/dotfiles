@@ -7,5 +7,5 @@ echo 'Linking config files'
 echo 'Initializing shell'
 eval "$(shell=bash "${HOME}/.config/dotfiles/shell/10-setup.sh")"
 
-echo "Calling 'dot_doctor'"
-dot_doctor
+echo "Calling 'dot_setup'"
+dot_setup

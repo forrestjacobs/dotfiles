@@ -14,7 +14,7 @@ This repository contains scripts and config files for my Mac & Linux development
 
 Check out this project and run `./install.sh`.
 
-There will be additional instructions printed at the end of the script's output. Run `dot_doctor` to see these instructions later.
+There will be additional instructions printed at the end of the script's output. Run `dot_setup` to see these instructions later.
 
 #### Setting up new Debian host
 
@@ -36,7 +36,7 @@ gh auth setup-git
 gh repo clone forrestjacobs/dotfiles
 ./dotfiles/install.sh
 exec fish
-dot_doctor
+dot_setup
 ```
 
 ### Home Manager
