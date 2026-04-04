@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-pushd "$(dirname "$(realpath "${BASH_SOURCE:0}")")" > /dev/null
-dotfile_home="$(git rev-parse --show-toplevel)/home"
-popd > /dev/null
-
 function clean_links() {
   if [ -d "${1}" ]; then
     find "${1}" -type l -exec sh -c '
@@ -18,6 +14,8 @@ function clean_links() {
 clean_links "${HOME}/.config"
 clean_links "${HOME}/.local/bin"
 clean_links "${HOME}/.local/share"
+
+dotfile_home="$(dot_path)/home"
 
 find "${dotfile_home}" \( -type f -or -type l \) '!' -name .DS_Store -exec bash -c '
   symlink="$1${3#$2}"

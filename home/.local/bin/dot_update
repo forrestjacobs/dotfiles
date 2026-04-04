@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-pushd "$(dirname "$(realpath "${BASH_SOURCE:0}")")" > /dev/null
-pushd "$(git rev-parse --show-toplevel)" > /dev/null
+dotfiles_path="$(dot_path)"
 
-git fetch
-test "$(git branch --show-current)" = "main"
-git merge --ff-only
-./install.sh
-
-popd > /dev/null
-popd > /dev/null
+git -C "${dotfiles_path}" fetch
+test "$(git -C "${dotfiles_path}" branch --show-current)" = "main"
+git -C "${dotfiles_path}" merge --ff-only
+"${dotfiles_path}/install.sh"
