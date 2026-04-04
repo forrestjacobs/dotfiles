@@ -26,7 +26,7 @@ find "${dotfile_home}" \( -type f -or -type l \) '!' -name .DS_Store -exec bash 
     mv "$symlink" "$symlink.old"
   fi
   if [ ! -f "$symlink" ]; then
-    echo mkdir -p "$(dirname "$symlink")"
-    echo ln -s "$target" "$symlink"
+    mkdir -p "$(dirname "$symlink")"
+    ln -s "$target" "$symlink"
   fi
 ' find-bash "${HOME}" "${dotfile_home}" {} ';'
