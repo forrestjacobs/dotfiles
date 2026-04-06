@@ -67,12 +67,20 @@ function link_config() {
       ln -s "$target" "$symlink"
     fi
   ' find-bash "${HOME}" "${dotfiles_path}/home" {} ';'
+
   eval "$(shell=bash "${HOME}/.config/dotfiles/shell/10-setup.sh")"
 }
 
 function update() {
+  if test "$(git -C "${dotfiles_path}" branch --show-current)" != "main"; then
+    echo "Not on main branch; exiting"
+    exit 2
+  fi
   git -C "${dotfiles_path}" fetch
-  test "$(git -C "${dotfiles_path}" branch --show-current)" = "main"
+  if test "$(git rev-list --left-right --count main...origin/main | awk '{ print $1 }')" = "0"; then
+    echo "Already up to date; exiting"
+    exit 1
+  fi
   git -C "${dotfiles_path}" merge --ff-only
 }
 
