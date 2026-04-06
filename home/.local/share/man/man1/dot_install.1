@@ -8,16 +8,11 @@ dot_install \- sets up dotfiles
 \fBupdate\fR
 .br
 .B dot_install
-\fBcheck\fR
-.br
-.B dot_install
 \fIname\fR
 .SH DESCRIPTION
 .B dot_install
-sets up dotfiles.
+sets up dotfiles. It installs config files in ~/.config and ~/.local/share.
 .PP
-When called with no arguments, it installs config files.
+With \fBupdate\fR, it fetches the latest changes before installing.
 .PP
-With \fBupdate\fR, it fetches the latest changes and installs them.
-.PP
-With \fBcheck\fR, it prints optional setup commands in the form of `\fBdot_install\fR \fIname\fR`
+With \fIname\fR, it sets up optional configuration. The available options are printed after running \fBdot_install\fR.
