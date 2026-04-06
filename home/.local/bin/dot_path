@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-git -C "$(dirname "$(realpath "${BASH_SOURCE:0}")")" rev-parse --show-toplevel
+dotfiles_path=$(git -C "$(dirname "$(realpath "${BASH_SOURCE:0}")")" rev-parse --show-toplevel)
+parent_path=$(git -C "${dotfiles_path}" rev-parse --show-superproject-working-tree)
+
+if [[ "${parent_path}" = "" ]]; then
+  echo "${dotfiles_path}"
+else
+  echo "${dotfiles_path}:${parent_path}"
+fi

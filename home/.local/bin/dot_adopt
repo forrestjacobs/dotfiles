@@ -12,7 +12,18 @@ if [[ $file != "${HOME}/"* ]]; then
   exit 2
 fi
 
-dotfiles_path="$(dot_path)"
+IFS=':' read -ra dotfiles_paths <<< "$(dot_path)"
+if [[ ${#dotfiles_paths[@]} = 1 ]]; then
+  dotfiles_path=${dotfiles_paths[0]}
+else
+  echo "Where do you want to move this file?"
+  select dotfiles_path in "${dotfiles_paths[@]}"; do
+    if [[ $dotfiles_path != "" ]]; then
+      break
+    fi
+  done
+fi
+
 if [[ $file == "${dotfiles_path}/"* ]]; then
   echo "'$1' is already in dotfiles"
   exit 3

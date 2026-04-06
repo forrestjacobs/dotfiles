@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-dotfiles_path=$("$(dirname "${BASH_SOURCE:0}")/dot_path")
+IFS=':' read -ra dotfiles_paths <<< "$("$(dirname "${BASH_SOURCE:0}")/dot_path")"
 
 function describe() {
   (
@@ -54,34 +54,47 @@ function link_config() {
   clean_links "${HOME}/.local/bin"
   clean_links "${HOME}/.local/share"
 
-  find "${dotfiles_path}/home" \( -type f -or -type l \) '!' -name .DS_Store -exec bash -c '
-    symlink="$1${3#$2}"
-    target="${3}"
-    if [ -f "$symlink" ] && { [ ! -L "$symlink" ] || [ "$(readlink "$symlink")" != "$target" ]; }; then
-      readlink "$symlink"
-      echo "Moving $symlink to $symlink.old"
-      mv "$symlink" "$symlink.old"
-    fi
-    if [ ! -f "$symlink" ]; then
-      mkdir -p "$(dirname "$symlink")"
-      ln -s "$target" "$symlink"
-    fi
-  ' find-bash "${HOME}" "${dotfiles_path}/home" {} ';'
+  for dotfiles_path in "${dotfiles_paths[@]}"; do
+    find "${dotfiles_path}/home" \( -type f -or -type l \) '!' -name .DS_Store -exec bash -c '
+      symlink="$1${3#$2}"
+      target="${3}"
+      if [ -f "$symlink" ] && { [ ! -L "$symlink" ] || [ "$(readlink "$symlink")" != "$target" ]; }; then
+        readlink "$symlink"
+        echo "Moving $symlink to $symlink.old"
+        mv "$symlink" "$symlink.old"
+      fi
+      if [ ! -f "$symlink" ]; then
+        mkdir -p "$(dirname "$symlink")"
+        ln -s "$target" "$symlink"
+      fi
+    ' find-bash "${HOME}" "${dotfiles_path}/home" {} ';'
 
-  eval "$(shell=bash "${HOME}/.config/dotfiles/shell/10-setup.sh")"
+    eval "$(shell=bash "${HOME}/.config/dotfiles/shell/10-setup.sh")"
+  done
 }
 
 function update() {
-  if test "$(git -C "${dotfiles_path}" branch --show-current)" != "main"; then
-    echo "Not on main branch; exiting"
-    exit 2
-  fi
-  git -C "${dotfiles_path}" fetch
-  if test "$(git rev-list --left-right --count main...origin/main | awk '{ print $1 }')" = "0"; then
+  for dotfiles_path in "${dotfiles_paths[@]}"; do
+    if test "$(git -C "${dotfiles_path}" branch --show-current)" != "main"; then
+      echo "Not on main branch; exiting"
+      exit 2
+    fi
+  done
+  needs_updating=0
+  for dotfiles_path in "${dotfiles_paths[@]}"; do
+    git -C "${dotfiles_path}" fetch
+    if test "$(git -C "${dotfiles_path}" rev-list --left-right --count main...origin/main | awk '{ print $1 }')" != "0"; then
+      needs_updating=1
+      exit 1
+    fi
+  done
+  if [[ $needs_updating = 0 ]]; then
     echo "Already up to date; exiting"
     exit 1
   fi
-  git -C "${dotfiles_path}" merge --ff-only
+  for dotfiles_path in "${dotfiles_paths[@]}"; do
+    git -C "${dotfiles_path}" merge --ff-only
+  done
 }
 
 case "${1:-}" in
