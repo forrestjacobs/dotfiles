@@ -15,7 +15,7 @@ clean_links "${HOME}/.config"
 clean_links "${HOME}/.local/bin"
 clean_links "${HOME}/.local/share"
 
-dotfile_home="$(dot_path)/home"
+dotfile_home="$("$(dirname "${BASH_SOURCE:0}")/dot_path")/home"
 
 find "${dotfile_home}" \( -type f -or -type l \) '!' -name .DS_Store -exec bash -c '
   symlink="$1${3#$2}"
