@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+dotfiles_path=$("$(dirname "${BASH_SOURCE:0}")/dot_path")
+
+function describe() {
+  (
+    set -euo pipefail
+    . "${HOME}/.local/share/dotfiles/setup/${1}.sh"
+    describe
+  )
+}
+
+function check() {
+  (
+    set -euo pipefail
+    . "${HOME}/.local/share/dotfiles/setup/${1}.sh"
+    check > /dev/null
+  )
+}
+
+function fix() {
+  (
+    set -euo pipefail
+    . "${HOME}/.local/share/dotfiles/setup/${1}.sh"
+    fix
+  )
+}
+
+function check_all() {
+  echo "Checking optional setup"
+  for script_path in "${HOME}"/.local/share/dotfiles/setup/*.sh; do
+    script_name=$(basename -- "$script_path" .sh)
+    if ! check "${script_name}"; then
+      echo "Call 'dot_install ${script_name}' to set up $(describe "${script_name}")"
+    fi
+  done
+}
+
+function clean_links() {
+  if [ -d "${1}" ]; then
+    find "${1}" -type l -exec sh -c '
+      for x; do
+        [ -e "$x" ] || rm "$x"
+      done
+    ' _ {} +
+  fi
+}
+
+function link_config() {
+  echo 'Linking config files'
+
+  clean_links "${HOME}/.config"
+  clean_links "${HOME}/.local/bin"
+  clean_links "${HOME}/.local/share"
+
+  find "${dotfiles_path}/home" \( -type f -or -type l \) '!' -name .DS_Store -exec bash -c '
+    symlink="$1${3#$2}"
+    target="${3}"
+    if [ -f "$symlink" ] && { [ ! -L "$symlink" ] || [ "$(readlink "$symlink")" != "$target" ]; }; then
+      readlink "$symlink"
+      echo "Moving $symlink to $symlink.old"
+      mv "$symlink" "$symlink.old"
+    fi
+    if [ ! -f "$symlink" ]; then
+      mkdir -p "$(dirname "$symlink")"
+      ln -s "$target" "$symlink"
+    fi
+  ' find-bash "${HOME}" "${dotfiles_path}/home" {} ';'
+  eval "$(shell=bash "${HOME}/.config/dotfiles/shell/10-setup.sh")"
+}
+
+function update() {
+  git -C "${dotfiles_path}" fetch
+  test "$(git -C "${dotfiles_path}" branch --show-current)" = "main"
+  git -C "${dotfiles_path}" merge --ff-only
+}
+
+case "${1:-}" in
+  "")
+    link_config
+    check_all
+    ;;
+  
+  update)
+    update
+    link_config
+    check_all
+    ;;
+
+  *)
+    if ! check "$1" > /dev/null; then
+      read -p "Set up $(describe "$1")? " -n 1 -r
+      echo
+      if [[ $REPLY =~ ^[Yy]$ ]]; then
+        fix "$1"
+        check_all
+      fi
+    fi
+    ;;
+esac

@@ -1,6 +1,6 @@
 # Forrest's dotfiles
 
-This repository contains scripts and config files for my Mac & Linux development environments. Running `install.sh` installs [my config files](./home), adds [my scripts](./home/.local/bin) to `$PATH`, and installs [some packages](./home/.config/homebrew/Brewfile) via [Homebrew](https://brew.sh/). It supports [fish](https://fishshell.com/), [bash](https://www.gnu.org/software/bash/), and [zsh](https://www.zsh.org/) by sourcing in the output of [`dot_shell [fish|bash|zsh]`](./home/.local/bin/dot_shell).
+This repository contains scripts and config files for my Mac & Linux development environments. Running `install.sh` installs [my config files](./home) and adds [my scripts](./home/.local/bin) to `$PATH`. It supports [fish](https://fishshell.com/), [bash](https://www.gnu.org/software/bash/), and [zsh](https://www.zsh.org/) by sourcing in the output of [`dot_shell [fish|bash|zsh]`](./home/.local/bin/dot_shell).
 
 ## Used on
 
@@ -14,7 +14,7 @@ This repository contains scripts and config files for my Mac & Linux development
 
 Check out this project and run `./install.sh`.
 
-There will be additional instructions printed at the end of the script's output. Run `dot_setup` to see these instructions later.
+There will be additional instructions printed at the end of the script's output. Run `dot_install check` to see these instructions later.
 
 #### Setting up new Debian host
 
@@ -35,8 +35,6 @@ gh auth setup-git
 # Install dotfiles
 gh repo clone forrestjacobs/dotfiles
 ./dotfiles/install.sh
-exec fish
-dot_setup
 ```
 
 ### Home Manager

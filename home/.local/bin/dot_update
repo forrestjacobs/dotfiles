@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-dotfiles_path="$(dot_path)"
-
-git -C "${dotfiles_path}" fetch
-test "$(git -C "${dotfiles_path}" branch --show-current)" = "main"
-git -C "${dotfiles_path}" merge --ff-only
-dot_reinstall
