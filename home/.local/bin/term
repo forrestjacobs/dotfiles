@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-cmd="tmux -u new -A -s main"
+cmd="zellij a -c main || tmux -u new -A -s main"
 if [ "$1" == cat ]; then
   echo "$cmd"
   exit
 fi
-exec $cmd
+exec bash -c "$cmd"

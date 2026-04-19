@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
-read -ra cmd < <(term cat)
-ssh -t "$1" "${cmd[@]}"
+ssh -t "$1" bash -c "$(term cat)"
 stty sane
