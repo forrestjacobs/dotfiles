@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-ssh -t "$1" bash -c "$(term cat)"
+TERM=xterm-256color ssh -o "SetEnv COLORTERM=truecolor" -o "SendEnv TERM_PROGRAM TERM_PROGRAM_VERSION" -t "$1" bash -c "$(term cat)"
 stty sane
