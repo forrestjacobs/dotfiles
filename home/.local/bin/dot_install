@@ -68,9 +68,9 @@ function link_config() {
         ln -s "$target" "$symlink"
       fi
     ' find-bash "${HOME}" "${dotfiles_path}/home" {} ';'
-
-    eval "$(shell=bash "${HOME}/.config/dotfiles/shell/10-setup.sh")"
   done
+
+  eval "$(shell=bash "${HOME}/.config/dotfiles/shell/10-setup.sh")"
 }
 
 function update() {
@@ -102,7 +102,7 @@ case "${1:-}" in
     link_config
     check_all
     ;;
-  
+
   update)
     update
     link_config
