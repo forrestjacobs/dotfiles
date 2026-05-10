@@ -16,7 +16,7 @@ fix() {
   fi
 
   if ! has fish; then
-    echo "install fish and then try again"
+    >&2 echo "install fish and then try again"
     exit 1
   fi
 

@@ -2,18 +2,18 @@
 set -e
 
 if [ -L "$1" ]; then
-  echo "'$1' is a symlink"
+  >&2 echo "'$1' is a symlink"
   exit 1
 fi
 
 file="$(realpath "$1")"
 if [[ $file != "${HOME}/"* ]]; then
-  echo "'$1' is not in your home directory"
+  >&2 echo "'$1' is not in your home directory"
   exit 2
 fi
 
 if [[ $file == "${HOME}/.cache/"* ]]; then
-  echo "'$1' is already in cache"
+  >&2 echo "'$1' is already in cache"
   exit 3
 fi
 file="${file#"${HOME}"/}"

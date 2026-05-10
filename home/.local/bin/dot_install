@@ -76,7 +76,7 @@ function link_config() {
 function update() {
   for dotfiles_path in "${dotfiles_paths[@]}"; do
     if test "$(git -C "${dotfiles_path}" branch --show-current)" != "main"; then
-      echo "Not on main branch; exiting"
+      >&2 echo "Not on main branch; exiting"
       exit 2
     fi
   done
@@ -85,11 +85,11 @@ function update() {
     git -C "${dotfiles_path}" fetch
     if test "$(git -C "${dotfiles_path}" rev-list --left-right --count main...origin/main | awk '{ print $1 }')" != "0"; then
       needs_updating=1
-      exit 1
+      break
     fi
   done
   if [[ $needs_updating = 0 ]]; then
-    echo "Already up to date; exiting"
+    >&2 echo "Already up to date; exiting"
     exit 1
   fi
   for dotfiles_path in "${dotfiles_paths[@]}"; do
@@ -110,6 +110,10 @@ case "${1:-}" in
     ;;
 
   *)
+    if [ ! -f "${HOME}/.local/share/dotfiles/setup/${1}.sh" ]; then
+      >&2 echo "Unexpected argument \`${1}\`. Call \`dot_install\` to install, or \`dot_install update\` to fetch and apply the latest changes."
+      exit 1
+    fi
     if ! check "$1"; then
       read -p "Set up $(describe "$1")? " -n 1 -r
       echo
