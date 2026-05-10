@@ -110,7 +110,7 @@ case "${1:-}" in
     ;;
 
   *)
-    if ! check "$1" > /dev/null; then
+    if ! check "$1"; then
       read -p "Set up $(describe "$1")? " -n 1 -r
       echo
       if [[ $REPLY =~ ^[Yy]$ ]]; then
