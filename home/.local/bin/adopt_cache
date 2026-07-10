@@ -17,7 +17,8 @@ if [[ $file == "${HOME}/.cache/"* ]]; then
   exit 3
 fi
 file="${file#"${HOME}"/}"
+dashed_file="${file//\//-}"
 
-mkdir -p "${HOME}/.cache/adopted/$(dirname "$file")"
-mv "${HOME}/${file}" "${HOME}/.cache/adopted/${file}"
-ln -s "${HOME}/.cache/adopted/${file}" "${HOME}/${file}"
+mkdir -p "${HOME}/.cache/adopted"
+mv "${HOME}/${file}" "${HOME}/.cache/adopted/${dashed_file}"
+ln -s "${HOME}/.cache/adopted/${dashed_file}" "${HOME}/${file}"
