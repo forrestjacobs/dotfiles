@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
+: "${shell:?}"
+
 if has fzf; then
-  fzf "--${shell:?}"
+  fzf "--${shell}"
 fi
 
 if has starship; then
-  starship init "${shell:?}"
+  starship init "${shell}"
   echo
 fi
 
 if has zoxide; then
-  zoxide init "${shell:?}"
+  zoxide init "${shell}"
 fi

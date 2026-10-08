@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+: "${shell:?}"
+
 # EDITOR
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
   p_export EDITOR code_wait
@@ -26,7 +28,7 @@ p_export BAT_THEME ansi
 # eza
 p_export EZA_ICONS_AUTO
 p_export TIME_STYLE iso
-if [[ "${shell:?}" = "fish" ]]; then
+if [[ "${shell}" = "fish" ]]; then
   # remove distro's ll
   echo "functions -e ll"
 fi
