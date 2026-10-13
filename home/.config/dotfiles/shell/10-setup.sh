@@ -1,53 +1,63 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 : "${shell:?}"
 
-# Inlining for performance
-has () {
-  command -v "$1" &> /dev/null
-}
-
-p_alias () {
-  if [[ "${shell}" = "fish" ]]; then
-    printf "function %q --wraps=%q --description %q\n    %s\nend\n" "$1" "$2" "$2" "$2"
-  else
-    printf "alias %q=%q\n" "$1" "$2"
-  fi
-}
-
 p_abbr () {
-  if [[ "${shell}" = "fish" ]]; then
-    printf "abbr %q %q\n" "$1" "$2"
+  if test "${shell}" = fish; then
+    echo "abbr $1 \"$2\""
   else
-    p_alias "$@"
+    echo "alias $1=\"$2\""
   fi
 }
 
 p_export () {
-  export "$1"="$2"
-  if [[ "${shell}" = "fish" ]]; then
-    printf "set -gx %q %q\n" "$1" "$2"
+  if test "${shell}" = fish; then
+    echo "set -gx $1 \"$2\""
   else
-    printf "export %q=%q\n" "$1" "$2"
+    echo "export $1=\"$2\""
+  fi
+}
+
+cache_path="\$HOME/.cache/dotfiles/$shell"
+if test "${shell}" = fish; then
+  echo "set -l cache_path \"$cache_path\""
+  echo "test -d \"\$cache_path\"; or mkdir -p \"\$cache_path\""
+else
+  echo "cache_path=\"$cache_path\""
+  echo "test -d \"\$cache_path\" || mkdir -p \"\$cache_path\""
+fi
+
+p_source () {
+  file_path="\$cache_path/${1##*/}"
+  if test "${shell}" = fish; then
+    echo "if set -l cmd_path (command -v \"$1\")"
+    echo "  test \"\$cmd_path\" -ot \"$file_path\"; or $* > \"$file_path\""
+    echo "  source \"$file_path\""
+    echo "end"
+  else
+    echo "if cmd_path=\$(command -v \"$1\"); then"
+    echo "  [[ \"\$cmd_path\" -ot \"$file_path\" ]] || $* > \"$file_path\""
+    echo "  . \"$file_path\""
+    echo "fi"
   fi
 }
 
 add_path () {
-  if ! [[ ":$PATH:" == *":$1:"* ]]; then
-    p_export PATH "$1:$PATH"
+  if test "${shell}" = fish; then
+    echo "fish_add_path --path \"$1\""
+  else
+    echo "[[ \":\$PATH:\" == *\":$1:\"* ]] || export PATH=\"$1:\$PATH\""
   fi
 }
 
-p_export XDG_CONFIG_HOME "$HOME"/.config
-add_path "$HOME"/.local/bin
+p_export XDG_CONFIG_HOME \$HOME/.config
+add_path \$HOME/.local/bin
 
 # Homebrew
-if ! has brew; then
-  for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
-    if has "$brew_path"; then
-      $brew_path shellenv "${shell}"
-      eval "$($brew_path shellenv bash)"
-      break
-    fi
-  done
+if test "$(uname)" = Darwin; then
+  brew_prefix=/opt/homebrew
+else
+  brew_prefix=/home/linuxbrew/.linuxbrew
 fi
+
+p_source $brew_prefix/bin/brew shellenv "$shell"

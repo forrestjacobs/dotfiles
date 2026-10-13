@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+if has eza; then
+  eza -lT --level=2 "$@"
+else
+  tree --metafirst -puhDL 2 "$@"
+fi

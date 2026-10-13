@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  code --wait "$@"
+else
+  for editor in hx nvim vim vi nano; do
+    if has "$editor"; then
+      "$editor" "$@"
+      break
+    fi
+  done
+  exit 1
+fi
