@@ -54,10 +54,8 @@ p_export XDG_CONFIG_HOME \$HOME/.config
 add_path \$HOME/.local/bin
 
 # Homebrew
-if test "$(uname)" = Darwin; then
-  brew_prefix=/opt/homebrew
-else
-  brew_prefix=/home/linuxbrew/.linuxbrew
+if test -d /opt/homebrew; then
+  p_source /opt/homebrew/bin/brew shellenv "$shell"
+elif test -d /home/linuxbrew; then
+  p_source /home/linuxbrew/.linuxbrew/bin/brew shellenv "$shell"
 fi
-
-p_source $brew_prefix/bin/brew shellenv "$shell"
