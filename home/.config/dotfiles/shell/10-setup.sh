@@ -44,7 +44,7 @@ p_source () {
 
 add_path () {
   if test "${shell}" = fish; then
-    echo "fish_add_path --path \"$1\""
+    echo "contains -- \"$1\" \$PATH; or set -gx PATH \"$1\" \$PATH"
   else
     echo "[[ \":\$PATH:\" == *\":$1:\"* ]] || export PATH=\"$1:\$PATH\""
   fi

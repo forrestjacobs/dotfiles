@@ -25,7 +25,6 @@ p_export MANOPT --no-justification
 
 # mise
 add_path \$HOME/.local/share/mise/shims
-p_source mise activate --shims "${shell}"
 p_abbr mr 'mise run'
 
 # starship
