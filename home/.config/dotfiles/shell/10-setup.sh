@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 : "${shell:?}"
 
@@ -54,6 +54,7 @@ p_export XDG_CONFIG_HOME \$HOME/.config
 add_path \$HOME/.local/bin
 
 # Homebrew
+# Test the Mac directory first because checking a missing directory takes ~30ms on macOS
 if test -d /opt/homebrew; then
   p_source /opt/homebrew/bin/brew shellenv "$shell"
 elif test -d /home/linuxbrew; then
