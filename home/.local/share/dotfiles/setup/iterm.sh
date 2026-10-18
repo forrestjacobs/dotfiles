@@ -6,7 +6,7 @@ describe() {
 }
 
 check() {
-  if has defaults && defaults read com.googlecode.iterm2.plist &> /dev/null; then
+  if command -v defaults &> /dev/null && defaults read com.googlecode.iterm2.plist &> /dev/null; then
     [[ $(defaults read com.googlecode.iterm2.plist PrefsCustomFolder) = "${HOME}/.config/dotfiles/iterm" ]]
     [[ $(defaults read com.googlecode.iterm2.plist LoadPrefsFromCustomFolder) = "1" ]]
   fi

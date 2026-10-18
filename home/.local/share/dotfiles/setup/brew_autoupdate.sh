@@ -6,7 +6,7 @@ describe() {
 }
 
 check() {
-  if has launchctl; then
+  if command -v launchctl &> /dev/null; then
     launchctl list | grep -q "com.github.domt4.homebrew-autoupdate"
   fi
 }

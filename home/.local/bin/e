@@ -3,7 +3,7 @@ if [[ "$TERM_PROGRAM" == "vscode" ]]; then
   code --wait "$@"
 else
   for editor in hx nvim vim vi nano; do
-    if has "$editor"; then
+    if command -v "$editor" &> /dev/null; then
       "$editor" "$@"
       break
     fi

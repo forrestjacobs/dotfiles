@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 if [ $# -eq 0 ] || [ -d "$1" ]; then
-  if has eza; then
+  if command -v eza &> /dev/null; then
     eza "$@"
   else
     ls "$@"
   fi
-elif has bat; then
+elif command -v bat &> /dev/null; then
   bat -p "$@"
 else
   $PAGER "$@"

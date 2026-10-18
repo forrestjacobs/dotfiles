@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if has eza; then
+if command -v eza &> /dev/null; then
   eza -aagl --smart-group "$@"
 else
   ls -al "$@"

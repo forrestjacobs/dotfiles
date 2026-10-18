@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if has eza; then
+if command -v eza &> /dev/null; then
   eza -lT --level=2 "$@"
 else
   tree --metafirst -puhDL 2 "$@"

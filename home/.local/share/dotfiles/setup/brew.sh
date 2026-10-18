@@ -6,7 +6,7 @@ describe() {
 }
 
 check() {
-  has brew
+  command -v brew &> /dev/null
 }
 
 fix() {

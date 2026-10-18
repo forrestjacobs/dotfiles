@@ -10,7 +10,7 @@ check() {
 }
 
 fix() {
-  if ! has gh; then
+  if ! command -v gh &> /dev/null; then
     dot_setup brew
     brew install gh
   fi

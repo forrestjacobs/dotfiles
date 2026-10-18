@@ -10,12 +10,12 @@ check() {
 }
 
 fix() {
-  if has lsb_release && [[ "$(lsb_release -is)" == "Debian" ]] && (( "$(lsb_release -rs)" >= 12 )); then
+  if command -v lsb_release &> /dev/null && [[ "$(lsb_release -is)" == "Debian" ]] && (( "$(lsb_release -rs)" >= 12 )); then
     sudo DEBIAN_FRONTEND=noninteractive apt-get update --yes
     sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends fish
   fi
 
-  if ! has fish; then
+  if ! command -v fish &> /dev/null; then
     >&2 echo "install fish and then try again"
     exit 1
   fi
