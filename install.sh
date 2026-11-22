@@ -1,4 +1,10 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/sh
+set -eu
 
-"$(dirname "${BASH_SOURCE:0}")/home/.local/bin/dot_install"
+if test -z "$CODESPACES" && test -z "$REMOTE_CONTAINERS"; then
+  echo "Only intended for Dev Containers and GitHub Codespaces" 1>&2
+  exit 1
+fi
+
+sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends chezmoi
+exec chezmoi init --apply --source="${HOME}"/dotfiles

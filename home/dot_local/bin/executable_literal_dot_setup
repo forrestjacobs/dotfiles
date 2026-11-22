@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+function describe() {
+  (
+    set -euo pipefail
+    . "${HOME}/.local/share/chezmoi/setup/${1}.sh"
+    describe
+  )
+}
+
+function check() {
+  (
+    set -euo pipefail
+    . "${HOME}/.local/share/chezmoi/setup/${1}.sh"
+    check > /dev/null
+  )
+}
+
+function fix() {
+  (
+    set -euo pipefail
+    . "${HOME}/.local/share/chezmoi/setup/${1}.sh"
+    fix
+  )
+}
+
+function check_all() {
+  echo "Checking optional setup"
+  for script_path in "${HOME}"/.local/share/chezmoi/setup/*.sh; do
+    script_name=$(basename -- "$script_path" .sh)
+    if ! check "${script_name}"; then
+      echo "Call 'dot_setup ${script_name}' to set up $(describe "${script_name}")"
+    fi
+  done
+}
+
+case "${1:-}" in
+  "")
+    check_all
+    ;;
+
+  *)
+    if [ ! -f "${HOME}/.local/share/chezmoi/setup/${1}.sh" ]; then
+      >&2 echo "Unexpected argument \`${1}\`. Call \`dot_setup\` to see options."
+      exit 1
+    fi
+    if ! check "$1"; then
+      read -p "Set up $(describe "$1")? " -n 1 -r
+      echo
+      if [[ $REPLY =~ ^[Yy]$ ]]; then
+        fix "$1"
+        check_all
+      fi
+    fi
+    ;;
+esac
