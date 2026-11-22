@@ -6,7 +6,6 @@ This repository contains scripts and config files for my Mac & Linux development
 
 - Recent macOS
 - Debian 12+ (both as a host and in a dev container)
-- Recent NixOS via [Home Manager](https://nix-community.github.io/home-manager/)
 
 ## Setup
 
@@ -36,10 +35,6 @@ gh auth setup-git
 gh repo clone forrestjacobs/dotfiles
 ./dotfiles/install.sh
 ```
-
-### Home Manager
-
-Import [this flake](./flake.nix) in your [Home Manager](https://nix-community.github.io/home-manager/) config.
 
 ### Dev containers
 
