@@ -1,3 +1,9 @@
+[shell]
+paths = [
+  "$HOME/.local/bin",
+  "$HOME/.local/share/mise/shims",
+]
+
 [shell.env]
 XDG_CONFIG_HOME="$HOME/.config"
 # bat
