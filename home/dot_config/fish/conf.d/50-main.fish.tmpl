@@ -1,0 +1,45 @@
+# remove distro's ll
+functions -e ll
+
+set -gx MISE_FISH_AUTO_ACTIVATE 0
+
+# shared config
+set -g cache_path "$HOME/.cache/dotfiles/fish"
+echo "$cache_path"
+test -d "$cache_path"; or mkdir -p "$cache_path"
+
+function p_source -a name
+  set -l file_path "$cache_path/$(path basename "$name")"
+  echo "$file_path"
+  if set -l cmd_path (command -v "$name")
+    test "$cmd_path" -ot "$file_path"; or $argv > "$file_path"
+    source "$file_path"
+  end
+end
+
+function add_path -a p
+  contains -- "$p" $PATH; or set -gx PATH "$p" $PATH
+end
+
+{{ range $envName, $envValue := .shell.env -}}
+set -gx {{ $envName }} "{{ $envValue }}"
+{{ end }}
+
+add_path "$HOME/.local/bin"
+
+# Homebrew
+{{ if eq .chezmoi.os "darwin" -}}
+p_source /opt/homebrew/bin/brew shellenv fish
+{{ else -}}
+p_source /home/linuxbrew/.linuxbrew/bin/brew shellenv fish
+{{ end }}
+
+add_path "$HOME/.local/share/mise/shims"
+
+{{ range $abbrName, $abbrValue := .shell.abbr -}}
+abbr {{ $abbrName }} "{{ $abbrValue }}"
+{{ end }}
+
+p_source fzf --fish
+p_source starship init fish --print-full-init
+p_source zoxide init fish

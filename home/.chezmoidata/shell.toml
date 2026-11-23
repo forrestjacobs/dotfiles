@@ -1,0 +1,29 @@
+[shell.env]
+XDG_CONFIG_HOME="$HOME/.config"
+# bat
+BAT_STYLE="numbers,changes"
+BAT_THEME="ansi"
+# editor
+EDITOR="e"
+# eza
+EZA_ICONS_AUTO=""
+TIME_STYLE="iso"
+# fish
+fish_greeting=""
+# less
+PAGER="less"
+LESS="-iRFXMx4"
+LESSHISTFILE="$HOME/.cache/less-hist"
+# man
+MANOPT="--no-justification"
+# starship
+STARSHIP_LOG="error"
+
+[shell.abbr]
+# mise
+mr="mise run"
+# sudo
+E="sudo -e"
+# systemctl
+s="systemctl"
+S="sudo systemctl"
