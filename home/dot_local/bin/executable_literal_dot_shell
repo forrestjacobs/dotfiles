@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# shellcheck disable=SC2034
-shell=$1
-
-for f in ~/.local/share/chezmoi/shell/*.sh; do
-  # shellcheck disable=SC1090
-  . "$f"
-done
